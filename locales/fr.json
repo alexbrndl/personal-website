@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Index",
+    "projects": "Études",
+    "gallery": "Gallerie"
+  },
+  "home": {
+    "name": "Alexandre Brondel",
+    "title": "Design Engineer",
+    "studies": "Études",
+    "gallery": "Gallerie",
+    "viewMore": "voir plus",
+    "bio": {
+      "headline": "Du design au code sans friction.",
+      "intro": "Je fais le pont entre design et développement, en créant des produits numériques du concept au code. Avec une expertise en Product Design et en développement frontend (Vue.js, Nuxt, TypeScript), j'aide les marques et entreprises à construire des interfaces qui fonctionnent aussi bien qu'elles sont belles.",
+      "clients": "J'ai travaillé avec des clients comme GRDF, Groupe SEB et SNCF, en gérant tout de l'identité visuelle aux expériences web complètes.",
+      "agency": "Je collabore avec Mélodie chez {agencyLink}, une agence web créative où nous sommes spécialisés en développement Webflow, branding et stratégie SEO.",
+      "agencyName": "Rêve Mieux",
+      "background": "Avant le design, j'ai travaillé comme ingénieur logiciel chez Capgemini, ce qui m'a donné les bases techniques pour comprendre les deux côtés du processus de création de produit.",
+      "philosophy": "Je crois que les meilleurs produits naissent de la compréhension à la fois du design thinking et des contraintes techniques – et j'aime être la personne qui parle ces deux langages.",
+      "discover": "Sur ce site, tu trouveras mes projets clients, mes expérimentations design et ma vision de la création d'interfaces.",
+      "contact": "Tu peux me contacter à {emailLink} ou me trouver sur {twitterLink}."
+    },
+    "seo": {
+      "title": "Alexandre Brondel - Design Engineer",
+      "description": "Du design au code sans friction. Design Engineer basé à Angers, France."
+    }
+  },
+  "project": {
+    "backToIndex": "retour à l'index"
+  },
+  "gallery": {
+    "title": "Gallerie",
+    "backToIndex": "retour à l'index",
+    "empty": "Aucun contenu pour le moment.",
+    "seo": {
+      "title": "Gallerie - Alexandre Brondel",
+      "description": "Sélection de visuels de projets."
+    }
+  },
+  "footer": {
+    "location": "Basé à Angers, France",
+    "status": "ouvert aux opportunités",
+    "copyright": "© {year} Alexandre Brondel. Tous droits réservés."
+  }
+}
