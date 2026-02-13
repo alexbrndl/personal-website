@@ -1,6 +1,17 @@
+<script setup>
+const route = useRoute()
+const router = useRouter()
+const noStagger = ref(!!route.hash)
+
+const removeGuard = router.beforeEach((to) => {
+  noStagger.value = !!to.hash
+})
+onUnmounted(() => removeGuard())
+</script>
+
 <template>
   <div class="gradient-fade" />
-  <div class="layout">
+  <div class="layout" :class="{ 'no-stagger': noStagger, 'layout-compact': route.path !== '/' }">
     <LayoutHeader />
     <main class="layout-main">
       <slot />
@@ -27,7 +38,7 @@
   min-height: 100dvh;
   max-width: var(--container-max);
   flex-direction: column;
-  gap: 1rem;
+  gap: 3rem;
   padding-inline: 1rem;
   padding-block: 5rem;
 }
@@ -39,8 +50,12 @@
   gap: 3rem;
 }
 
+.layout-compact {
+  gap: 1rem;
+}
+
 @media (min-width: 74rem) {
-  .layout {
+  .layout-compact {
     gap: 3rem;
   }
 }

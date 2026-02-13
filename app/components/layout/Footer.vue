@@ -9,41 +9,52 @@ const year = new Date().getFullYear()
   <footer class="footer">
     <div class="footer-info">
       <p class="footer-location">{{ t('footer.location') }}</p>
-      <p class="footer-status">
-        {{ t('footer.status') }}
-        <BadgeCheck class="footer-icon" />
-      </p>
       <p class="footer-copyright">
         {{ t('footer.copyright', { year }) }}
       </p>
     </div>
 
-    <nav aria-label="Liens sociaux" class="footer-nav">
-      <a
-        href="mailto:alexandre@revemieux.fr"
-        aria-label="Envoyer un email à alexandre@revemieux.fr"
-        class="footer-email"
-      >
-        <Copy class="footer-icon" aria-hidden="true" />
-        alexandre@revemieux.fr
-      </a>
-      <a
-        href="https://linkedin.com/in/alexbrndl"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="footer-link"
-      >
-        LinkedIn
-      </a>
-      <a
-        href="https://github.com/alexbrndl"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="footer-link"
-      >
-        Github
-      </a>
-    </nav>
+    <div class="footer-right">
+      <div class="footer-status">
+        <span>{{ t('footer.status') }}</span>
+        <BadgeCheck class="footer-icon" />
+      </div>
+
+      <nav aria-label="Liens sociaux" class="footer-nav">
+        <a
+          href="mailto:alexandre@revemieux.fr"
+          aria-label="Envoyer un email à alexandre@revemieux.fr"
+          class="footer-email"
+        >
+          <Copy class="footer-icon" aria-hidden="true" />
+          alexandre@revemieux.fr
+        </a>
+        <a
+          href="https://linkedin.com/in/alexbrndl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+        >
+          LinkedIn
+        </a>
+        <a
+          href="https://github.com/alexbrndl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+        >
+          Github
+        </a>
+        <a
+          href="https://figma.com/@alexbrndl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+        >
+          Figma
+        </a>
+      </nav>
+    </div>
   </footer>
 </template>
 
@@ -60,23 +71,44 @@ const year = new Date().getFullYear()
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  color: var(--color-text-muted);
 }
 
 .footer-location {
   font-size: 0.875rem;
-  color: var(--color-text-muted);
+  letter-spacing: -0.04em;
+}
+
+.footer-copyright {
+  font-size: 0.75rem;
+  letter-spacing: -0.04em;
+}
+
+.footer-right {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .footer-right {
+    display: flex;
+  }
 }
 
 .footer-status {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: var(--color-accent-muted);
+  background-color: var(--color-timberwolf-50);
+  font-size: 1rem;
+  letter-spacing: -0.04em;
+  color: var(--color-accent);
 }
 
-.footer-copyright {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
+:global(html.dark) .footer-status {
+  background-color: var(--color-timberwolf-800);
 }
 
 .footer-icon {
@@ -85,15 +117,10 @@ const year = new Date().getFullYear()
 }
 
 .footer-nav {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 0.25rem;
-}
-
-@media (min-width: 640px) {
-  .footer-nav {
-    display: flex;
-  }
+  border-radius: 0.25rem;
 }
 
 .footer-email {
@@ -102,15 +129,30 @@ const year = new Date().getFullYear()
   gap: 0.25rem;
   background-color: var(--color-bg-accent);
   padding: 0.125rem 0.25rem;
+  font-size: 1rem;
+  letter-spacing: -0.04em;
   color: var(--color-accent);
+}
+
+:global(html.dark) .footer-email {
+  color: var(--color-malachite-400);
 }
 
 .footer-link {
   padding: 0.125rem 0.25rem;
-  transition: color 0.15s;
+  font-size: 1rem;
+  letter-spacing: -0.04em;
+  color: var(--color-timberwolf-800);
+  transition: all 0.15s;
+}
+
+:global(html.dark) .footer-link {
+  background-color: var(--color-timberwolf-800);
+  color: var(--color-timberwolf-50);
 }
 
 .footer-link:hover {
   color: var(--color-text-hover);
+  background-color: var(--color-bg-hover);
 }
 </style>

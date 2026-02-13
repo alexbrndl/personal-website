@@ -50,7 +50,7 @@ useSeoMeta({
     <p>
       <i18n-t keypath="home.bio.agency" tag="span">
         <template #agencyLink>
-          <a href="https://revemieux.fr" target="_blank" rel="noopener noreferrer" class="bio-link">{{ t('home.bio.agencyName') }}</a>
+          <UiSmartLink href="https://revemieux.fr">{{ t('home.bio.agencyName') }}</UiSmartLink>
         </template>
       </i18n-t>
     </p>

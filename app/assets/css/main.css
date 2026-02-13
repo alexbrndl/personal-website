@@ -63,12 +63,14 @@ ol {
 
   /* Backgrounds */
   --color-bg: var(--color-timberwolf-1);
+  --color-bg-foreground: var(--color-timberwolf-100);
+  --color-bg-hover: var(--color-timberwolf-200);
   --color-bg-accent: var(--color-malachite-100);
   --color-bg-accent-hover: var(--color-malachite-50);
 
   /* Text */
   --color-text: var(--color-timberwolf-800);
-  --color-text-hover: var(--color-timberwolf-500);
+  --color-text-hover: var(--color-timberwolf-900);
   --color-text-muted: var(--color-timberwolf-500);
   --color-text-muted-hover: var(--color-timberwolf-800);
 
@@ -87,11 +89,12 @@ ol {
 
 html.dark {
   --color-bg: var(--color-timberwolf-900);
+  --color-bg-foreground: var(--color-timberwolf-800);
   --color-bg-accent: var(--color-malachite-900);
   --color-bg-accent-hover: var(--color-malachite-950);
 
   --color-text: var(--color-timberwolf-50);
-  --color-text-hover: var(--color-timberwolf-500);
+  --color-text-hover: var(--color-timberwolf-400);
   --color-text-muted: var(--color-timberwolf-500);
   --color-text-muted-hover: var(--color-timberwolf-50);
 
@@ -108,7 +111,6 @@ html {
   background-color: var(--color-bg);
   letter-spacing: -0.02em;
   line-height: normal;
-  text-wrap: balance;
   scroll-behavior: smooth;
   scroll-padding-top: 2rem;
 }
@@ -140,6 +142,63 @@ body {
   10% { opacity: 1; }
 }
 
+/* ─── Entrance animation ─── */
+@keyframes stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.layout > :first-child,
+.layout > :last-child,
+.layout-main > *,
+.bio > * {
+  animation: stagger-in 0.5s ease both;
+}
+
+/* Header */
+.layout > :first-child { animation-delay: 0s; }
+
+/* Page sections — default delays (project, gallery pages) */
+.layout-main > :first-child { animation-delay: 0.05s; }
+.layout-main > :nth-child(2) { animation-delay: 0.1s; }
+.layout-main > :nth-child(3) { animation-delay: 0.15s; }
+.layout-main > :nth-child(n+4) { animation-delay: 0.2s; }
+
+/* Bio: skip wrapper, animate each paragraph */
+.layout-main > .bio { animation: none; }
+/* Project page: only aside animates */
+.layout-main > .project-section { animation: none; }
+.bio > :first-child { animation-delay: 0s; }
+.bio > :nth-child(2) { animation-delay: 0.05s; }
+.bio > :nth-child(3) { animation-delay: 0.1s; }
+.bio > :nth-child(4) { animation-delay: 0.15s; }
+.bio > :nth-child(5) { animation-delay: 0.2s; }
+.bio > :nth-child(6) { animation-delay: 0.25s; }
+.bio > :nth-child(7) { animation-delay: 0.3s; }
+.bio > :nth-child(8) { animation-delay: 0.35s; }
+.bio > :nth-child(n+9) { animation-delay: 0.4s; }
+
+/* Sections after bio (études, gallery) — override default delays */
+.layout-main > .bio ~ * { animation-delay: 0.45s; }
+.layout-main > .bio ~ * ~ * { animation-delay: 0.5s; }
+
+/* Footer */
+.layout > :last-child { animation-delay: 0.55s; }
+
+/* Skip animation when navigating with a hash (e.g. /#etudes) */
+.no-stagger > :first-child,
+.no-stagger > :last-child,
+.no-stagger .layout-main > *,
+.no-stagger .bio > * {
+  animation: none;
+}
+
 /* ─── Utility ─── */
 .sr-only {
   position: absolute;
@@ -156,7 +215,7 @@ body {
 /* ─── Prose ─── */
 .prose {
   max-width: var(--container-max);
-  line-height: 1.5;
+  line-height: normal;
 }
 
 .prose h1,
