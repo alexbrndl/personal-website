@@ -22,20 +22,14 @@ year: 2025
 
 FitTrack avait besoin d'une application mobile performante pour accompagner ses utilisateurs dans leur parcours fitness. L'application devait offrir un suivi précis des entraînements avec des visualisations de données engageantes.
 
+:pros-figure{alt="test" caption="test" src="/images/portfolio-cover.jpg"}
+
 ## Approche
 
-Nous avons opté pour React Native afin de cibler iOS et Android avec une seule base de code. Les graphiques de progression utilisent D3.js pour des visualisations fluides et interactives.
+### Test
 
-![avatar](/images/avatar.png "test")
+Nous avons opté pour React Native afin de cibler iOS et Android avec une seule base de code. Les graphiques de progression utilisent D3.js pour des visualisations fluides et interactives.
 
 ## Résultats
 
 L'application a été lancée avec succès et compte aujourd'hui plus de 10 000 utilisateurs actifs mensuels.
-
-## test
-
-### essai
-
-#### coucou
-
-bonjour

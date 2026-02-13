@@ -10,8 +10,24 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@nuxtjs/color-mode',
+    'nuxt-studio',
     '@nuxt/devtools',
   ],
+
+  components: [
+    { path: '~/components/content', global: true, pathPrefix: false },
+    { path: '~/components', ignore: ['content/**'] },
+  ],
+
+  hooks: {
+    'components:extend': (components) => {
+      for (const c of components) {
+        if (['ProsFigure'].includes(c.pascalName)) {
+          c.global = true
+        }
+      }
+    },
+  },
 
   css: ['~/assets/css/main.css'],
 
@@ -54,6 +70,14 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
+  },
+
+  studio: {
+    meta: {
+      components: {
+        exclude: ['Prose*'],
+      },
+    },
   },
 
   devtools: { enabled: true },

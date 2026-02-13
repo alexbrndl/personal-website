@@ -35,46 +35,49 @@ ol {
 
 /* ─── Variables ─── */
 :root {
-  --color-natural-1: #fafafa;
-  --color-natural-50: #f5f2ef;
-  --color-natural-100: #ece7e2;
-  --color-natural-200: #d9d2cc;
-  --color-natural-300: #b8b0a8;
-  --color-natural-400: #8c8580;
-  --color-natural-600: #635c57;
-  --color-natural-800: #37322d;
-  --color-natural-900: #1c1917;
-  --color-natural-950: #0f0d0b;
+  --color-timberwolf-1: #fdfcfc;
+  --color-timberwolf-50: #fafaf9;
+  --color-timberwolf-100: #f4f2f0;
+  --color-timberwolf-200: #e9e5e2;
+  --color-timberwolf-300: #dad3ce;
+  --color-timberwolf-400: #c6bab2;
+  --color-timberwolf-500: #b5a79d;
+  --color-timberwolf-600: #988b83;
+  --color-timberwolf-700: #776b65;
+  --color-timberwolf-800: #5e544f;
+  --color-timberwolf-900: #4d4541;
+  --color-timberwolf-950: #2c2724;
+  --color-timberwolf-999: #0b0807;
 
-  --color-mint-50: #c0ffcd;
-  --color-mint-100: #a7ffb8;
-  --color-mint-200: #7ef298;
-  --color-mint-300: #56d578;
-  --color-mint-400: #23ae53;
-  --color-mint-500: #008b31;
-  --color-mint-600: #00761a;
-  --color-mint-700: #005e00;
-  --color-mint-800: #004700;
-  --color-mint-900: #003000;
-  --color-mint-950: #001100;
+  --color-malachite-50: #e9ffec;
+  --color-malachite-100: #ceffd5;
+  --color-malachite-200: #98ffad;
+  --color-malachite-300: #00fd72;
+  --color-malachite-400: #00eb69;
+  --color-malachite-500: #00da60;
+  --color-malachite-600: #00ab3f;
+  --color-malachite-700: #008b31;
+  --color-malachite-800: #006c21;
+  --color-malachite-900: #005818;
+  --color-malachite-950: #00330c;
 
   /* Backgrounds */
-  --color-bg: var(--color-natural-1);
-  --color-bg-accent: var(--color-mint-100);
-  --color-bg-accent-hover: var(--color-mint-50);
+  --color-bg: var(--color-timberwolf-1);
+  --color-bg-accent: var(--color-malachite-100);
+  --color-bg-accent-hover: var(--color-malachite-50);
 
   /* Text */
-  --color-text: var(--color-natural-800);
-  --color-text-hover: var(--color-natural-400);
-  --color-text-muted: var(--color-natural-400);
-  --color-text-muted-hover: var(--color-natural-800);
+  --color-text: var(--color-timberwolf-800);
+  --color-text-hover: var(--color-timberwolf-500);
+  --color-text-muted: var(--color-timberwolf-500);
+  --color-text-muted-hover: var(--color-timberwolf-800);
 
   /* Accent (text + outlines) */
-  --color-accent: var(--color-mint-500);
-  --color-accent-muted: var(--color-mint-800);
+  --color-accent: var(--color-malachite-800);
+  --color-accent-muted: var(--color-malachite-800);
 
   /* Border */
-  --color-border: var(--color-natural-100);
+  --color-border: var(--color-timberwolf-100);
 
   --font-body: 'Geist', sans-serif;
   --font-mono: 'Geist Mono', monospace;
@@ -83,19 +86,19 @@ ol {
 }
 
 html.dark {
-  --color-bg: var(--color-natural-900);
-  --color-bg-accent: var(--color-mint-900);
-  --color-bg-accent-hover: var(--color-mint-950);
+  --color-bg: var(--color-timberwolf-900);
+  --color-bg-accent: var(--color-malachite-900);
+  --color-bg-accent-hover: var(--color-malachite-950);
 
-  --color-text: var(--color-natural-50);
-  --color-text-hover: var(--color-natural-400);
-  --color-text-muted: var(--color-natural-400);
-  --color-text-muted-hover: var(--color-natural-50);
+  --color-text: var(--color-timberwolf-50);
+  --color-text-hover: var(--color-timberwolf-500);
+  --color-text-muted: var(--color-timberwolf-500);
+  --color-text-muted-hover: var(--color-timberwolf-50);
 
-  --color-accent: var(--color-mint-400);
-  --color-accent-muted: var(--color-mint-300);
+  --color-accent: var(--color-malachite-400);
+  --color-accent-muted: var(--color-malachite-300);
 
-  --color-border: var(--color-natural-800);
+  --color-border: var(--color-timberwolf-800);
 }
 
 /* ─── Base ─── */
@@ -153,7 +156,7 @@ body {
 /* ─── Prose ─── */
 .prose {
   max-width: var(--container-max);
-  line-height: 1.75;
+  line-height: 1.5;
 }
 
 .prose h1,
@@ -165,8 +168,8 @@ body {
 }
 
 .prose h1 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem; }
-.prose h2 { font-size: 1.25rem; margin-top: 3rem; margin-bottom: 1rem; }
-.prose h3 { font-size: 1.125rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+.prose h2 { font-size: 1.125rem; margin-top: 3rem; margin-bottom: 1rem; }
+.prose h3, .prose h4 { font-size: 1rem; margin-top: 0; margin-bottom: 0; }
 .prose p { margin-bottom: 1.25rem; }
 
 .prose a {
@@ -179,15 +182,15 @@ body {
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background-color: var(--color-natural-100);
+  background-color: var(--color-timberwolf-100);
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
 }
-html.dark .prose code { background-color: var(--color-natural-800); }
+html.dark .prose code { background-color: var(--color-timberwolf-800); }
 
 .prose pre {
-  background-color: var(--color-natural-900);
-  color: var(--color-natural-50);
+  background-color: var(--color-timberwolf-900);
+  color: var(--color-timberwolf-50);
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   overflow-x: auto;
@@ -209,24 +212,37 @@ html.dark .prose code { background-color: var(--color-natural-800); }
 .prose ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
 .prose li { margin-bottom: 0.25rem; }
 
-/* ─── Prose project ─── */
-.prose-project h2 {
+.prose h2 {
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.04em;
 }
-.prose-project h2,
-.prose-project h3 {
+.prose h2,
+.prose h3 {
   scroll-margin-top: calc(6rem - 1px);
 }
-.prose-project h2::after {
+.prose h2::after {
   content: '';
   flex: 1;
   height: 1px;
   background-color: var(--color-border);
 }
-.prose-project figure { margin: 3rem 0; text-align: center; }
-.prose-project figcaption { margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-muted); }
+.prose figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+}
+.prose figure img {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  margin: 0;
+}
+.prose figcaption {
+  font-size: 0.875rem;
+  letter-spacing: -0.04em;
+  color: var(--color-text-muted);
+  text-align: center;
+}

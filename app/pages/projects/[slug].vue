@@ -55,7 +55,7 @@ useSeoMeta({
       </div>
     </div>
 
-    <div class="prose prose-project">
+    <div class="prose">
       <ContentRenderer :value="project" />
     </div>
   </section>
@@ -76,7 +76,7 @@ useSeoMeta({
 
 .project-title {
   font-size: 1.25rem;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
 }
 
 .project-meta {

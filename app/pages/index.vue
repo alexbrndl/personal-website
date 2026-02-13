@@ -143,7 +143,7 @@ useSeoMeta({
   display: flex;
   align-items: center;
   font-size: 0.875rem;
-  color: var(--color-natural-600);
+  color: var(--color-timberwolf-600);
   transition: color 0.15s;
 }
 
