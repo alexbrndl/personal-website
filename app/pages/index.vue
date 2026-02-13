@@ -81,6 +81,8 @@ useSeoMeta({
       :meta="`${project.client ?? project.role} · ${formatDate(project.date)}`"
       :description="project.description"
       :cover="project.cover"
+      :url="project.url ?? ''"
+      :tags="project.tags ?? []"
     />
   </section>
 
@@ -143,7 +145,7 @@ useSeoMeta({
   display: flex;
   align-items: center;
   font-size: 0.875rem;
-  color: var(--color-timberwolf-600);
+  color: var(--color-text-muted);
   transition: color 0.15s;
 }
 

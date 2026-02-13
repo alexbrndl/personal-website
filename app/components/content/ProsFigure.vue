@@ -1,18 +1,17 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  src?: string
-  alt?: string
-  caption?: string
-}>(), {
-  src: '',
-  alt: '',
-  caption: '',
+const props = defineProps({
+  src: { type: String, default: '' },
+  alt: { type: String, default: '' },
+  caption: { type: String, default: '' },
 })
+
+const isVideo = computed(() => /\.(webm|mp4|mov)$/i.test(props.src))
 </script>
 
 <template>
   <figure>
-    <NuxtImg v-if="src" :src="src" :alt="alt" />
+    <video v-if="isVideo" :src="src" autoplay loop muted playsinline />
+    <NuxtImg v-else-if="src" :src="src" :alt="alt" />
     <figcaption v-if="caption">{{ caption }}</figcaption>
     <slot mdc-unwrap="p" />
   </figure>

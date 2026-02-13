@@ -101,14 +101,9 @@ const year = new Date().getFullYear()
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  background-color: var(--color-timberwolf-50);
   font-size: 1rem;
   letter-spacing: -0.04em;
   color: var(--color-accent);
-}
-
-:global(html.dark) .footer-status {
-  background-color: var(--color-timberwolf-800);
 }
 
 .footer-icon {
@@ -134,21 +129,12 @@ const year = new Date().getFullYear()
   color: var(--color-accent);
 }
 
-:global(html.dark) .footer-email {
-  color: var(--color-malachite-400);
-}
-
 .footer-link {
   padding: 0.125rem 0.25rem;
   font-size: 1rem;
   letter-spacing: -0.04em;
-  color: var(--color-timberwolf-800);
+  color: var(--color-text-muted);
   transition: all 0.15s;
-}
-
-:global(html.dark) .footer-link {
-  background-color: var(--color-timberwolf-800);
-  color: var(--color-timberwolf-50);
 }
 
 .footer-link:hover {

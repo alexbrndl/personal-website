@@ -63,8 +63,8 @@ ol {
 
   /* Backgrounds */
   --color-bg: var(--color-timberwolf-1);
-  --color-bg-foreground: var(--color-timberwolf-100);
   --color-bg-hover: var(--color-timberwolf-200);
+  --color-bg-foreground: var(--color-timberwolf-100);
   --color-bg-accent: var(--color-malachite-100);
   --color-bg-accent-hover: var(--color-malachite-50);
 
@@ -88,8 +88,9 @@ ol {
 }
 
 html.dark {
-  --color-bg: var(--color-timberwolf-900);
-  --color-bg-foreground: var(--color-timberwolf-800);
+  --color-bg: var(--color-timberwolf-950);
+  --color-bg-hover: var(--color-timberwolf-900);
+  --color-bg-foreground: var(--color-timberwolf-900);
   --color-bg-accent: var(--color-malachite-900);
   --color-bg-accent-hover: var(--color-malachite-950);
 

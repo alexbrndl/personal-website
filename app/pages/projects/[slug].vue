@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ArrowUpRight } from 'lucide-vue-next'
+
 const { t } = useI18n()
 const route = useRoute()
 
@@ -15,6 +17,15 @@ if (!project.value) {
 const toc = computed(() => {
   if (!project.value?.body?.toc?.links) return []
   return project.value.body.toc.links
+})
+
+const projectDomain = computed(() => {
+  if (!project.value?.url) return null
+  try {
+    return new URL(project.value.url).hostname.replace(/^www\./, '')
+  } catch {
+    return null
+  }
 })
 
 useSeoMeta({
@@ -38,7 +49,21 @@ useSeoMeta({
         <h1 class="project-title">{{ project.title }}</h1>
         <p class="project-meta">
           {{ project.client ?? project.role }} · {{ formatDate(project.date) }}
+          <template v-if="project.url">·</template>
+          <a
+            v-if="project.url"
+            :href="project.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="project-url"
+          >
+            {{ projectDomain }}
+            <ArrowUpRight class="project-url-icon" />
+          </a>
         </p>
+        <div v-if="project.tags?.length" class="project-tags">
+          <span v-for="tag in project.tags" :key="tag" class="project-tag">{{ tag }}</span>
+        </div>
       </div>
 
       <div class="project-details">
@@ -65,7 +90,6 @@ useSeoMeta({
 .project-section {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
 }
 
 .project-info {
@@ -74,14 +98,55 @@ useSeoMeta({
   gap: 1rem;
 }
 
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .project-title {
   font-size: 1.25rem;
   letter-spacing: -0.02em;
 }
 
 .project-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
   font-size: 0.875rem;
   letter-spacing: -0.04em;
+  color: var(--color-text-muted);
+}
+
+.project-url {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.project-url:hover {
+  color: var(--color-text-muted-hover);
+}
+
+.project-url-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.project-tag {
+  font-size: 0.75rem;
+  letter-spacing: -0.02em;
+  padding: 0.125rem 0.5rem;
+  background-color: var(--color-bg-foreground);
+  border-radius: 1rem;
   color: var(--color-text-muted);
 }
 
