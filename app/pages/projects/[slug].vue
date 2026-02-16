@@ -58,7 +58,7 @@ useSeoMeta({
             class="project-url"
           >
             {{ projectDomain }}
-            <ArrowUpRight class="project-url-icon" />
+            <ArrowUpRight class="project-url-icon" aria-hidden="true" />
           </a>
         </p>
         <div v-if="project.tags?.length" class="project-tags">

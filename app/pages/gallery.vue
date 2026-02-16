@@ -1,54 +1,32 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-const { data: projects, error } = await useAsyncData('gallery-projects', () =>
-  queryCollection('projects')
-    .order('date', 'DESC')
+const { data: images, error } = await useAsyncData('gallery-images', () =>
+  queryCollection('gallery')
     .all()
 )
 
 if (error.value) {
-  console.error('Failed to fetch gallery projects:', error.value)
+  console.error('Failed to fetch gallery images:', error.value)
 }
-
-const galleryImages = computed(() => {
-  if (!projects.value) return []
-
-  return projects.value.flatMap((project) => {
-    const items: { src: string; alt: string; slug: string }[] = []
-
-    if (project.cover) {
-      items.push({ src: project.cover, alt: project.title, slug: project.stem })
-    }
-
-    for (const item of project.gallery ?? []) {
-      if (item.type === 'image') {
-        items.push({ src: item.src, alt: item.alt ?? project.title, slug: project.stem })
-      }
-    }
-
-    return items
-  })
-})
 
 useSeoMeta({
   title: t('gallery.seo.title'),
   description: t('gallery.seo.description'),
+  ogImage: '/images/avatar.png',
 })
 </script>
 
 <template>
-  <LayoutAside to="/" :label="t('gallery.backToIndex')" />
+  <LayoutAside to="/" :label="t('gallery.backToIndex')" persistent />
 
   <section class="section">
-    <p class="section-label">{{ t('gallery.title') }}</p>
+    <h1 class="section-label">{{ t('gallery.title') }}</h1>
 
     <div class="gallery-stack">
-      <NuxtLink
-        v-for="img in galleryImages"
-        :key="`${img.slug}-${img.src}`"
-        :to="`/${img.slug}`"
-        :aria-label="img.alt"
+      <figure
+        v-for="img in images"
+        :key="img.id"
         class="gallery-item"
       >
         <NuxtImg
@@ -57,10 +35,13 @@ useSeoMeta({
           class="gallery-item-img"
           loading="lazy"
         />
-      </NuxtLink>
+        <figcaption v-if="img.description" class="gallery-item-caption">
+          {{ img.description }}
+        </figcaption>
+      </figure>
     </div>
 
-    <div v-if="!galleryImages.length" class="gallery-empty">
+    <div v-if="!images?.length" class="gallery-empty">
       <p>{{ t('gallery.empty') }}</p>
     </div>
   </section>
@@ -74,24 +55,35 @@ useSeoMeta({
 }
 
 .section-label {
+  font-size: inherit;
+  font-weight: inherit;
   color: var(--color-text-muted);
 }
 
 .gallery-stack {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 }
 
 .gallery-item {
-  display: block;
-  aspect-ratio: 14 / 9;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .gallery-item-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.gallery-item-caption {
+  font-size: 0.875rem;
+  letter-spacing: -0.04em;
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 .gallery-empty {

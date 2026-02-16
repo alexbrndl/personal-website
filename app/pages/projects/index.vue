@@ -12,8 +12,8 @@ if (error.value) {
 }
 
 useSeoMeta({
-  title: 'Études - Alexandre Brondel',
-  description: 'Projets et études de cas.',
+  title: t('project.seo.title'),
+  description: t('project.seo.description'),
 })
 </script>
 
@@ -21,6 +21,7 @@ useSeoMeta({
   <LayoutAside to="/" :label="t('project.backToIndex')" />
 
   <section class="projects-list">
+    <h1 class="section-label">{{ t('home.studies') }}</h1>
     <StudyCard
       v-for="project in projects"
       :key="project.path"
@@ -34,6 +35,12 @@ useSeoMeta({
 </template>
 
 <style scoped>
+.section-label {
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--color-text-muted);
+}
+
 .projects-list {
   display: flex;
   flex-direction: column;

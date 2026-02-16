@@ -30,7 +30,7 @@ const year = new Date().getFullYear()
           alexandre@revemieux.fr
         </a>
         <a
-          href="https://linkedin.com/in/alexbrndl"
+          href="https://www.linkedin.com/in/alexandre-brondel/"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-link"
@@ -148,5 +148,12 @@ const year = new Date().getFullYear()
 .footer-link:hover {
   color: var(--color-text-hover);
   background-color: var(--color-bg-hover);
+}
+
+.footer-email:focus-visible,
+.footer-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
 }
 </style>

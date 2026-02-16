@@ -12,9 +12,10 @@ const props = defineProps<{
   label: string
   title?: string
   toc?: TocLink[]
+  persistent?: boolean
 }>()
 
-const hasSidebar = computed(() => !!(props.title || props.toc?.length))
+const hasSidebar = computed(() => !!(props.persistent || props.title || props.toc?.length))
 
 function scrollToTop() {
   window.scrollTo({ top: 0 })
@@ -60,7 +61,7 @@ if (import.meta.client) {
   <!-- Fixed sidebar (lg+ only, when there's sidebar content) -->
   <aside v-if="hasSidebar" class="aside-sidebar">
     <NuxtLink :to="to" class="back-link">
-      <CornerUpLeft class="back-icon" />
+      <CornerUpLeft class="back-icon" aria-hidden="true" />
       {{ label }}
     </NuxtLink>
 
@@ -82,7 +83,7 @@ if (import.meta.client) {
   <!-- Inline (< lg) -->
   <div class="aside-inline">
     <NuxtLink :to="to" class="back-link">
-      <CornerUpLeft class="back-icon" />
+      <CornerUpLeft class="back-icon" aria-hidden="true" />
       {{ label }}
     </NuxtLink>
   </div>

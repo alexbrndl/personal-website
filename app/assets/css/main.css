@@ -71,7 +71,7 @@ ol {
   /* Text */
   --color-text: var(--color-timberwolf-800);
   --color-text-hover: var(--color-timberwolf-900);
-  --color-text-muted: var(--color-timberwolf-500);
+  --color-text-muted: var(--color-timberwolf-600);
   --color-text-muted-hover: var(--color-timberwolf-800);
 
   /* Accent (text + outlines) */
@@ -96,7 +96,7 @@ html.dark {
 
   --color-text: var(--color-timberwolf-50);
   --color-text-hover: var(--color-timberwolf-400);
-  --color-text-muted: var(--color-timberwolf-500);
+  --color-text-muted: var(--color-timberwolf-400);
   --color-text-muted-hover: var(--color-timberwolf-50);
 
   --color-accent: var(--color-malachite-400);

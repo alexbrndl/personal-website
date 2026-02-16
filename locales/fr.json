@@ -19,7 +19,7 @@
       "background": "Avant le design, j'ai travaillé comme ingénieur logiciel chez Capgemini, ce qui m'a donné les bases techniques pour comprendre les deux côtés du processus de création de produit.",
       "philosophy": "Je crois que les meilleurs produits naissent de la compréhension à la fois du design thinking et des contraintes techniques – et j'aime être la personne qui parle ces deux langages.",
       "discover": "Sur ce site, tu trouveras mes projets clients, mes expérimentations design et ma vision de la création d'interfaces.",
-      "contact": "Tu peux me contacter à {emailLink} ou me trouver sur {twitterLink}."
+      "contact": "Tu peux me contacter à {emailLink} ou me trouver sur {linkedinLink}."
     },
     "seo": {
       "title": "Alexandre Brondel - Design Engineer",
@@ -27,7 +27,11 @@
     }
   },
   "project": {
-    "backToIndex": "retour à l'index"
+    "backToIndex": "retour à l'index",
+    "seo": {
+      "title": "Études - Alexandre Brondel",
+      "description": "Projets et études de cas."
+    }
   },
   "gallery": {
     "title": "Gallerie",

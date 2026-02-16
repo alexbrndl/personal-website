@@ -4,18 +4,13 @@ cover: /images/color-shades/cover.png
 date: 2026-02-01
 description: Né d'une frustration personnelle avec les outils existants, ce plugin génère des palettes de 11 nuances accessibles par défaut en un clic. Algorithme en OKLCH, accessibilité intégrée (WCAG 2.1 + APCA), trois versions itérées sur des retours réels.
 featured: true
-gallery: []
 role: Design Engineer
-seo:
-  title: Portfolio Personnel
-  description: Création d'un portfolio moderne et minimaliste avec Nuxt 4 et un design system sur mesure.
 tags:
   - Figma Plugin
   - Design + Dev
   - Accessibilité
   - 32 000+ utilisateurs
 url: https://www.figma.com/community/plugin/1050457414903366814/color-shades-oser
-year: 2026
 ---
 
 ## Introduction

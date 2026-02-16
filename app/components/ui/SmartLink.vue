@@ -89,6 +89,12 @@ const displayLabel = computed(() => props.label || domain.value)
   transform: scale(1);
 }
 
+.smart-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
 .smart-link-favicon {
   position: absolute;
   left: 0.125rem;

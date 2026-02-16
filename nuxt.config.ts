@@ -61,6 +61,15 @@ export default defineNuxtConfig({
     format: ['webp', 'avif'],
   },
 
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/images/avatar.png' },
+      ],
+    },
+  },
+
   site: {
     url: 'https://alexbrndl.com',
     name: 'Alex Brondel',
@@ -73,6 +82,11 @@ export default defineNuxtConfig({
   },
 
   studio: {
+    repository: {
+      provider: 'github',
+      owner: 'alexbrndl',
+      repo: 'personal-website',
+    },
     meta: {
       components: {
         exclude: ['Prose*'],

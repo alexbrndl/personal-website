@@ -39,7 +39,7 @@ const domain = computed(() => {
             class="study-card-url"
           >
             {{ domain }}
-            <ArrowUpRight class="study-card-url-icon" />
+            <ArrowUpRight class="study-card-url-icon" aria-hidden="true" />
           </a>
         </p>
         <div v-if="tags.length" class="study-card-tags">
@@ -99,6 +99,12 @@ const domain = computed(() => {
   position: absolute;
   inset: 0;
   z-index: 1;
+}
+
+.study-card-title:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
 }
 
 .study-card:hover .study-card-title {
