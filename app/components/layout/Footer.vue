@@ -61,10 +61,18 @@ const year = new Date().getFullYear()
 <style scoped>
 .footer {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  flex-direction: column-reverse;
+  gap: 1.5rem;
   border-top: 1px solid var(--color-border);
   padding-top: 3rem;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
 }
 
 .footer-info {
@@ -85,15 +93,14 @@ const year = new Date().getFullYear()
 }
 
 .footer-right {
-  display: none;
+  display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 0.5rem;
 }
 
 @media (min-width: 640px) {
   .footer-right {
-    display: flex;
+    align-items: flex-end;
   }
 }
 
@@ -113,6 +120,7 @@ const year = new Date().getFullYear()
 
 .footer-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem;
   border-radius: 0.25rem;

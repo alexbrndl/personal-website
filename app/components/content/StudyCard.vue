@@ -98,6 +98,7 @@ const domain = computed(() => {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;
 }
 
 .study-card:hover .study-card-title {
@@ -109,13 +110,12 @@ const domain = computed(() => {
   align-items: center;
   gap: 0.125rem;
   font-size: 0.875rem;
-  letter-spacing: -0.04em;
   color: var(--color-text-muted);
 }
 
 .study-card-url {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   text-decoration: underline;
@@ -139,8 +139,7 @@ const domain = computed(() => {
 }
 
 .study-card-tag {
-  font-size: 0.75rem;
-  letter-spacing: -0.02em;
+  font-size: 0.875rem;
   padding: 0.125rem 0.5rem;
   background-color: var(--color-bg-foreground);
   border-radius: 1rem;
@@ -155,8 +154,6 @@ const domain = computed(() => {
 
 .study-card-desc {
   flex: 1;
-  font-size: 0.875rem;
-  letter-spacing: -0.04em;
   color: var(--color-text-muted);
 }
 

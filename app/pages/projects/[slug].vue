@@ -106,7 +106,6 @@ useSeoMeta({
 
 .project-title {
   font-size: 1.25rem;
-  letter-spacing: -0.02em;
 }
 
 .project-meta {
@@ -114,7 +113,6 @@ useSeoMeta({
   align-items: center;
   gap: 0.125rem;
   font-size: 0.875rem;
-  letter-spacing: -0.04em;
   color: var(--color-text-muted);
 }
 
@@ -142,8 +140,7 @@ useSeoMeta({
 }
 
 .project-tag {
-  font-size: 0.75rem;
-  letter-spacing: -0.02em;
+  font-size: 0.875rem;
   padding: 0.125rem 0.5rem;
   background-color: var(--color-bg-foreground);
   border-radius: 1rem;
@@ -164,8 +161,7 @@ useSeoMeta({
 
 .project-desc {
   flex: 1;
-  font-size: 0.875rem;
-  letter-spacing: -0.04em;
+  font-size: 1rem;
   color: var(--color-text-muted);
 }
 
