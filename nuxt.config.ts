@@ -77,6 +77,10 @@ export default defineNuxtConfig({
     defaultLocale: 'fr',
   },
 
+  sitemap: {
+    zeroRuntime: true,
+  },
+
   colorMode: {
     classSuffix: '',
   },
