@@ -51,13 +51,13 @@ const domain = computed(() => {
         <p class="study-card-desc">
           {{ description }}
         </p>
-        <NuxtLink :to="to" class="study-card-cover-wrapper">
+        <div class="study-card-cover-wrapper">
           <NuxtImg
             :src="cover"
             :alt="title"
             class="study-card-cover"
           />
-        </NuxtLink>
+        </div>
       </div>
     </div>
   </article>
@@ -65,8 +65,14 @@ const domain = computed(() => {
 
 <style scoped>
 .study-card {
+  position: relative;
   border-top: 1px solid var(--color-border);
   padding: 0.75rem 0;
+  transition: border-color 0.3s;
+}
+
+.study-card:hover {
+  border-color: var(--color-text-muted);
 }
 
 .study-card-info {
@@ -85,9 +91,16 @@ const domain = computed(() => {
   font-size: 1.25rem;
   letter-spacing: -0.02em;
   transition: color 0.15s;
+  font-weight: 600;
 }
 
-.study-card-title:hover {
+.study-card-title::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.study-card:hover .study-card-title {
   color: var(--color-text-hover);
 }
 
@@ -101,6 +114,8 @@ const domain = computed(() => {
 }
 
 .study-card-url {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   text-decoration: underline;
@@ -157,5 +172,10 @@ const domain = computed(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.study-card:hover .study-card-cover {
+  transform: scale(1.03);
 }
 </style>
