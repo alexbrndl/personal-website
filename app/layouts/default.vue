@@ -1,4 +1,7 @@
 <script setup>
+import { SpeedInsights } from '@vercel/speed-insights/vue'
+import { Analytics } from '@vercel/analytics/vue'
+
 const route = useRoute()
 const router = useRouter()
 const noStagger = ref(!!route.hash)
@@ -18,6 +21,8 @@ onUnmounted(() => removeGuard())
     </main>
     <LayoutFooter />
   </div>
+  <SpeedInsights />
+  <Analytics />
 </template>
 
 <style>
