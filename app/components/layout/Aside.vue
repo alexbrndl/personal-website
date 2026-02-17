@@ -36,8 +36,8 @@ if (import.meta.client) {
     let current = ''
 
     const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 24
-    if (atBottom) {
-      current = links[links.length - 1].id
+    if (atBottom && links.length > 0) {
+      current = links[links.length - 1]!.id
     } else {
       for (const link of links) {
         const el = document.getElementById(link.id)

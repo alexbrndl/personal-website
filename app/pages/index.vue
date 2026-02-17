@@ -29,19 +29,7 @@ const { data: galleryImages } = await useAsyncData('home-gallery', () =>
     .all()
 )
 
-const activeFilter = ref('all')
-
-const displayedCraftItems = computed(() =>
-  activeFilter.value === 'visual' ? [] : (craftItems.value ?? [])
-)
-
-const displayedGalleryItems = computed(() =>
-  activeFilter.value === 'interactive' ? [] : (galleryImages.value ?? [])
-)
-
-const displayedCount = computed(() =>
-  displayedCraftItems.value.length + displayedGalleryItems.value.length
-)
+const { activeFilter, displayedCraftItems, displayedGalleryItems, displayedCount } = useFilteredCraft(craftItems, galleryImages)
 
 useSeoMeta({
   title: t('home.seo.title'),
@@ -194,7 +182,7 @@ useSeoMeta({
 
 .cursor {
   font-family: var(--font-mono);
-  color: var(--color-accent);
+  color: var(--color-malachite-500);
   animation: blink 1500ms step-end infinite;
 }
 
@@ -275,101 +263,4 @@ useSeoMeta({
   height: 1rem;
 }
 
-.filters {
-  display: flex;
-  gap: 0.375rem;
-}
-
-.filter-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
-  background-color: transparent;
-  color: var(--color-text-muted);
-}
-
-.filter-pill:hover {
-  color: var(--color-text);
-}
-
-.filter-pill--active {
-  background-color: var(--color-bg-accent);
-  color: var(--color-accent);
-}
-
-.filter-pill-icon {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.craft-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-@media (max-width: 640px) {
-  .craft-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Filter transition */
-.grid-enter-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.grid-leave-active {
-  transition: opacity 0.15s ease;
-}
-
-.grid-enter-from {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.grid-leave-to {
-  opacity: 0;
-}
-
-.gallery-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.gallery-card-preview {
-  aspect-ratio: 14 / 9;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  border: 1px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.gallery-card:hover .gallery-card-preview {
-  border-color: var(--color-text-muted);
-}
-
-.gallery-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s;
-}
-
-.gallery-card:hover .gallery-card-img {
-  transform: scale(1.03);
-}
-
-.gallery-card-caption {
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
-}
 </style>

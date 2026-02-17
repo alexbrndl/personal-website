@@ -73,13 +73,14 @@ export default defineNuxtConfig({
 
   site: {
     url: 'https://alexbrndl.com',
-    name: 'Alex Brondel',
+    name: 'Alexandre Brondel',
     description: 'Portfolio de Alex Brondel',
     defaultLocale: 'fr',
   },
 
   sitemap: {
     zeroRuntime: true,
+    exclude: ['/test'],
   },
 
   colorMode: {

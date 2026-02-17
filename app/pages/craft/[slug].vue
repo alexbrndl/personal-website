@@ -18,7 +18,7 @@ const toc = computed(() => {
 })
 
 useSeoMeta({
-  title: `${item.value.title} - Alexandre Brondel`,
+  title: `${item.value.title} - `,
   description: item.value.description,
 })
 </script>

@@ -4,13 +4,7 @@ const props = defineProps({
   label: { type: String, default: '' },
 })
 
-const domain = computed(() => {
-  try {
-    return new URL(props.href).hostname.replace(/^www\./, '')
-  } catch {
-    return ''
-  }
-})
+const domain = computed(() => extractDomain(props.href))
 
 const faviconUrl = computed(() => {
   if (!domain.value) return ''
@@ -55,6 +49,7 @@ const displayLabel = computed(() => props.label || domain.value)
   font-weight: 500;
   text-decoration: none;
   color: var(--color-text);
+  transition: all 0.2s;
 }
 
 .smart-link:hover {
@@ -77,7 +72,7 @@ const displayLabel = computed(() => props.label || domain.value)
   content: '';
   position: absolute;
   inset: 0;
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-bg-foreground-hover);
   border-radius: inherit;
   opacity: 0;
   transform: scale(0.5);

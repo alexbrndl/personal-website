@@ -10,14 +10,7 @@ const props = defineProps({
   tags: { type: Array as () => string[], default: () => [] },
 })
 
-const domain = computed(() => {
-  if (!props.url) return null
-  try {
-    return new URL(props.url).hostname.replace(/^www\./, '')
-  } catch {
-    return null
-  }
-})
+const domain = computed(() => props.url ? extractDomain(props.url) : null)
 </script>
 
 <template>

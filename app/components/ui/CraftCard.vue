@@ -1,11 +1,15 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   to: { type: String, required: true },
   title: { type: String, required: true },
   date: { type: String, required: true },
   component: { type: String },
   cover: { type: String },
 })
+
+const isVideo = computed(() =>
+  props.cover ? /\.(mp4|webm|mov)$/i.test(props.cover) : false,
+)
 </script>
 
 <template>
@@ -16,6 +20,15 @@ defineProps({
           v-if="component"
           :is="component"
           class="craft-card-demo"
+        />
+        <video
+          v-else-if="cover && isVideo"
+          :src="cover"
+          class="craft-card-cover"
+          autoplay
+          loop
+          muted
+          playsinline
         />
         <NuxtImg
           v-else-if="cover"
