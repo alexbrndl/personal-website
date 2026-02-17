@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import gsap from 'gsap'
 import type { CraftComponentName } from '~/utils/craft-components'
+import ButtonMicro from '~/components/craft/ButtonMicro.vue'
+import TextRevealDemo from '~/components/craft/TextRevealDemo.vue'
+
+const componentMap: Record<CraftComponentName, Component> = {
+  ButtonMicro,
+  TextRevealDemo,
+}
 
 const props = defineProps<{
   is: CraftComponentName
@@ -8,6 +15,8 @@ const props = defineProps<{
   variant?: string
   showSlow?: boolean
 }>()
+
+const resolvedComponent = computed(() => componentMap[props.is])
 
 const slow = useState('craft-demo-slow', () => false)
 
@@ -29,7 +38,7 @@ onUnmounted(() => {
       <button v-if="showSlow" class="craft-demo-slow" @click="toggleSlow">
         {{ slow ? '🐢 Slow (×5)' : '▶ Normal' }}
       </button>
-      <component :is="is" :variant="variant" />
+      <component :is="resolvedComponent" :variant="variant" />
     </div>
     <figcaption v-if="legend" class="craft-demo-legend">
       {{ legend }}
@@ -53,19 +62,11 @@ onUnmounted(() => {
   border: 1px solid var(--color-border);
   background-color: var(--color-bg-backdrop);
   overflow: hidden;
-}
-
-/* Isolate demos from .prose and other inherited styles */
-.craft-demo-frame :deep(:where(*:not(svg, svg *))) {
-  all: revert;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.craft-demo-frame :deep(:where(button, input, select, textarea)) {
-  font: inherit;
-  color: inherit;
+  /* Reset inherited .prose styles */
+  color: var(--color-text);
+  line-height: normal;
+  letter-spacing: -0.02em;
+  text-wrap: wrap;
 }
 
 .craft-demo-slow {
