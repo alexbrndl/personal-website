@@ -35,19 +35,19 @@ ol {
 
 /* ─── Variables ─── */
 :root {
-  --color-timberwolf-1: #fdfcfc;
-  --color-timberwolf-50: #fafaf9;
-  --color-timberwolf-100: #f4f2f0;
-  --color-timberwolf-200: #e9e5e2;
+  --color-timberwolf-1: #fdfdfc;
+  --color-timberwolf-50: #fbfafa;
+  --color-timberwolf-100: #f5f4f2;
+  --color-timberwolf-200: #e9e5e3;
   --color-timberwolf-300: #dad3ce;
-  --color-timberwolf-400: #c6bab2;
-  --color-timberwolf-500: #b5a79d;
-  --color-timberwolf-600: #988b83;
-  --color-timberwolf-700: #776b65;
-  --color-timberwolf-800: #5e544f;
-  --color-timberwolf-900: #4d4541;
-  --color-timberwolf-950: #2c2724;
-  --color-timberwolf-999: #0b0807;
+  --color-timberwolf-400: #bbaca2;
+  --color-timberwolf-500: #8d8078;
+  --color-timberwolf-600: #6d615c;
+  --color-timberwolf-700: #554c48;
+  --color-timberwolf-800: #3c3532;
+  --color-timberwolf-900: #2c2624;
+  --color-timberwolf-950: #151211;
+  --color-timberwolf-999: #030302;
 
   --color-malachite-50: #e9ffec;
   --color-malachite-100: #ceffd5;
@@ -65,12 +65,14 @@ ol {
   --color-bg: var(--color-timberwolf-1);
   --color-bg-hover: var(--color-timberwolf-200);
   --color-bg-foreground: var(--color-timberwolf-100);
+  --color-bg-foreground-hover: var(--color-timberwolf-300);
+
   --color-bg-accent: var(--color-malachite-100);
   --color-bg-accent-hover: var(--color-malachite-50);
 
   /* Text */
-  --color-text: var(--color-timberwolf-800);
-  --color-text-hover: var(--color-timberwolf-900);
+  --color-text: var(--color-timberwolf-900);
+  --color-text-hover: var(--color-timberwolf-950);
   --color-text-muted: var(--color-timberwolf-600);
   --color-text-muted-hover: var(--color-timberwolf-800);
 
@@ -78,8 +80,10 @@ ol {
   --color-accent: var(--color-malachite-800);
   --color-accent-muted: var(--color-malachite-800);
 
+  --color-accent-link: var(--color-malachite-200);
+
   /* Border */
-  --color-border: var(--color-timberwolf-100);
+  --color-border: var(--color-timberwolf-200);
 
   --font-body: 'Geist', sans-serif;
   --font-mono: 'Geist Mono', monospace;
@@ -91,8 +95,11 @@ html.dark {
   --color-bg: var(--color-timberwolf-950);
   --color-bg-hover: var(--color-timberwolf-900);
   --color-bg-foreground: var(--color-timberwolf-900);
+  --color-bg-foreground-hover: var(--color-timberwolf-950);
+
   --color-bg-accent: var(--color-malachite-900);
   --color-bg-accent-hover: var(--color-malachite-950);
+
 
   --color-text: var(--color-timberwolf-50);
   --color-text-hover: var(--color-timberwolf-400);
@@ -112,6 +119,7 @@ html {
   background-color: var(--color-bg);
   letter-spacing: -0.02em;
   line-height: normal;
+  text-wrap: balance;
   scroll-behavior: smooth;
   scroll-padding-top: 2rem;
 }
@@ -185,12 +193,13 @@ body {
 .bio > :nth-child(8) { animation-delay: 0.35s; }
 .bio > :nth-child(n+9) { animation-delay: 0.4s; }
 
-/* Sections after bio (études, gallery) — override default delays */
+/* Sections after bio (études, craft, gallery) — override default delays */
 .layout-main > .bio ~ * { animation-delay: 0.45s; }
 .layout-main > .bio ~ * ~ * { animation-delay: 0.5s; }
+.layout-main > .bio ~ * ~ * ~ * { animation-delay: 0.55s; }
 
 /* Footer */
-.layout > :last-child { animation-delay: 0.55s; }
+.layout > :last-child { animation-delay: 0.6s; }
 
 /* Skip animation when navigating with a hash (e.g. /#etudes) */
 .no-stagger > :first-child,
@@ -213,44 +222,70 @@ body {
   border-width: 0;
 }
 
+.link {
+  color: var(--color-text);
+  background-image: linear-gradient(var(--color-accent-link), var(--color-accent-link));
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  padding: 0.125rem;
+  margin: 0 -0.125rem;
+  transition: background-size 250ms ease-in-out;
+}
+
+.link:hover {
+  background-size: 100% 100%;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 0.125rem;
+}
+
 /* ─── Prose ─── */
 .prose {
   max-width: var(--container-max);
   line-height: normal;
+  color: var(--color-text-muted);
 }
 
 .prose h1,
 .prose h2,
 .prose h3 {
   font-weight: 600;
-  letter-spacing: -0.04em;
-  scroll-margin-top: 2rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
-.prose h1 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem; }
-.prose h2 { font-size: 1.125rem; margin-top: 3rem; margin-bottom: 1rem; }
-.prose h3, .prose h4 { font-size: 1rem; margin-top: 0; margin-bottom: 0; }
+.prose h1 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+.prose h3, .prose h4 { font-size: 1rem; }
 .prose p { margin-bottom: 1.25rem; }
 
 .prose a {
-  text-decoration: underline;
-  text-decoration-skip-ink: none;
-  text-underline-offset: 2px;
+  color: var(--color-text);
+  background-image: linear-gradient(var(--color-accent-link), var(--color-accent-link));
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  padding: 0.125rem;
+  margin: 0 -0.125rem;
+  transition: background-size 250ms ease;
 }
-.prose a:hover { color: var(--color-text-hover); }
+.prose a:hover { background-size: 100% 100%; }
 
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background-color: var(--color-timberwolf-100);
+  background-color: var(--color-bg-foreground);
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
 }
-html.dark .prose code { background-color: var(--color-timberwolf-800); }
 
 .prose pre {
-  background-color: var(--color-timberwolf-900);
-  color: var(--color-timberwolf-50);
+  background-color: var(--color-bg-foreground);
+  border: var(--color-border) 1px solid;
+  color: var(--color-text);
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   overflow-x: auto;
@@ -273,14 +308,19 @@ html.dark .prose code { background-color: var(--color-timberwolf-800); }
 .prose li { margin-bottom: 0.25rem; }
 
 .prose h2 {
+  font-size: 1.125rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+
 .prose h2,
 .prose h3 {
   scroll-margin-top: calc(6rem - 1px);
 }
+
 .prose h2::after {
   content: '';
   flex: 1;
@@ -288,21 +328,5 @@ html.dark .prose code { background-color: var(--color-timberwolf-800); }
   background-color: var(--color-border);
 }
 .prose figure {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
   margin: 3rem 0;
-}
-.prose figure img {
-  width: 100%;
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-border);
-  margin: 0;
-}
-.prose figcaption {
-  font-size: 0.875rem;
-  letter-spacing: -0.04em;
-  color: var(--color-text-muted);
-  text-align: center;
 }

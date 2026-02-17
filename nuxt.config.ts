@@ -16,7 +16,8 @@ export default defineNuxtConfig({
 
   components: [
     { path: '~/components/content', global: true, pathPrefix: false },
-    { path: '~/components', ignore: ['content/**'] },
+    { path: '~/components/craft', global: true, pathPrefix: false },
+    { path: '~/components', ignore: ['content/**', 'craft/**'] },
   ],
 
   hooks: {
@@ -93,7 +94,7 @@ export default defineNuxtConfig({
     },
     meta: {
       components: {
-        exclude: ['Prose*'],
+        exclude: ['Prose*', '**/craft/**'],
       },
     },
   },

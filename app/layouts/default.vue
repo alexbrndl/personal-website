@@ -52,7 +52,7 @@ onUnmounted(() => removeGuard())
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 3rem;
+  gap: 5rem;
 }
 
 .layout-compact {

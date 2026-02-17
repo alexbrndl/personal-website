@@ -2,24 +2,34 @@
   "nav": {
     "home": "Index",
     "projects": "Études",
+    "craft": "Craft",
+    "about": "À propos",
     "gallery": "Gallerie"
   },
   "home": {
     "name": "Alexandre Brondel",
     "title": "Design Engineer",
     "studies": "Études",
+    "craft": "Craft",
     "gallery": "Gallerie",
     "viewMore": "voir plus",
+    "filterAll": "Tout",
+    "filterInteractive": "Interactif",
+    "filterVisual": "Visuel",
+    "status": "disponible",
     "bio": {
-      "headline": "Du design au code sans friction.",
-      "intro": "Je fais le pont entre design et développement, en créant des produits numériques du concept au code. Avec une expertise en Product Design et en développement frontend (Vue.js, Nuxt, TypeScript), j'aide les marques et entreprises à construire des interfaces qui fonctionnent aussi bien qu'elles sont belles.",
-      "clients": "J'ai travaillé avec des clients comme GRDF, Groupe SEB et SNCF, en gérant tout de l'identité visuelle aux expériences web complètes.",
-      "agency": "Je collabore avec Mélodie chez {agencyLink}, une agence web créative où nous sommes spécialisés en développement Webflow, branding et stratégie SEO.",
+      "headline": "Du design au code sans friction ",
+      "body": "Je fais le pont entre design et développement, du concept au code en {vueLink} et {nuxtLink}. Je crois que les meilleurs produits naissent de la compréhension à la fois du design thinking et des contraintes techniques, et j'aime être la personne qui parle ces deux langages. Je collabore avec Mélodie chez {agencyLink}.",
       "agencyName": "Rêve Mieux",
-      "background": "Avant le design, j'ai travaillé comme ingénieur logiciel chez Capgemini, ce qui m'a donné les bases techniques pour comprendre les deux côtés du processus de création de produit.",
-      "philosophy": "Je crois que les meilleurs produits naissent de la compréhension à la fois du design thinking et des contraintes techniques – et j'aime être la personne qui parle ces deux langages.",
-      "discover": "Sur ce site, tu trouveras mes projets clients, mes expérimentations design et ma vision de la création d'interfaces.",
-      "contact": "Tu peux me contacter à {emailLink} ou me trouver sur {linkedinLink}."
+      "background": "Avant le design, j'ai travaillé comme ingénieur logiciel chez {capgeminiLink}, cela m'a donné les bases techniques pour comprendre les deux côtés du processus.",
+      "today": "Aujourd'hui, je conçois et je développe : de la recherche utilisateur au composant déployé, en passant par chaque micro-interaction et chaque détail d'interface.",
+      "capgeminiName": "Capgemini",
+      "contact": "J'ai travaillé avec des clients comme GRDF, Groupe SEB et SNCF. Tu peux me contacter à {emailLink} ou me trouver sur {linkedinLink}."
+    },
+    "cta": {
+      "title": "Un projet en tête ?",
+      "body": "Je suis disponible pour des missions freelance et ouvert aux collaborations.",
+      "button": "Discutons"
     },
     "seo": {
       "title": "Alexandre Brondel - Design Engineer",
@@ -33,6 +43,20 @@
       "description": "Projets et études de cas."
     }
   },
+  "craft": {
+    "title": "Craft",
+    "backToIndex": "retour à l'index",
+    "component": "Composant",
+    "article": "Article",
+    "filterAll": "Tout",
+    "filterInteractive": "Interactif",
+    "filterVisual": "Visuel",
+    "empty": "Aucun contenu pour le moment.",
+    "seo": {
+      "title": "Craft - Alexandre Brondel",
+      "description": "Explorations, composants interactifs et articles techniques sur le design engineering."
+    }
+  },
   "gallery": {
     "title": "Gallerie",
     "backToIndex": "retour à l'index",
@@ -43,8 +67,9 @@
     }
   },
   "footer": {
+    "socialNav": "Liens sociaux",
+    "emailAriaLabel": "Envoyer un email à alexandre{'@'}revemieux.fr",
     "location": "Basé à Angers, France",
-    "status": "ouvert aux opportunités",
     "copyright": "© {year} Alexandre Brondel. Tous droits réservés."
   }
 }

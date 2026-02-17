@@ -8,8 +8,8 @@ role: Design Engineer
 tags:
   - Figma Plugin
   - Design + Dev
-  - Accessibilité
-  - 32 000+ utilisateurs
+  - a11y
+  - 32k+ users
 url: https://www.figma.com/community/plugin/1050457414903366814/color-shades-oser
 ---
 

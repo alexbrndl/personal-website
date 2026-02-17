@@ -60,7 +60,7 @@ if (import.meta.client) {
 <template>
   <!-- Fixed sidebar (lg+ only, when there's sidebar content) -->
   <aside v-if="hasSidebar" class="aside-sidebar">
-    <NuxtLink :to="to" class="back-link">
+    <NuxtLink :to="to" class="back-link link">
       <CornerUpLeft class="back-icon" aria-hidden="true" />
       {{ label }}
     </NuxtLink>
@@ -72,7 +72,7 @@ if (import.meta.client) {
         v-for="link in toc"
         :key="link.id"
         :href="`#${link.id}`"
-        class="toc-link"
+        class="toc-link link"
         :data-active="activeId === link.id || undefined"
       >
         {{ link.text }}
@@ -82,7 +82,7 @@ if (import.meta.client) {
 
   <!-- Inline (< lg) -->
   <div class="aside-inline">
-    <NuxtLink :to="to" class="back-link">
+    <NuxtLink :to="to" class="back-link link">
       <CornerUpLeft class="back-icon" aria-hidden="true" />
       {{ label }}
     </NuxtLink>
@@ -104,6 +104,7 @@ if (import.meta.client) {
     width: 10rem;
     flex-direction: column;
     gap: 2rem;
+    align-items: flex-start;
   }
 }
 
@@ -126,12 +127,13 @@ if (import.meta.client) {
   gap: 0.25rem;
   font-size: 0.875rem;
   letter-spacing: -0.04em;
-  color: var(--color-text-muted);
-  transition: color 0.15s;
+  color: var(--color-text);
+  background-size: 100% 0px;
 }
 
 .back-link:hover {
   color: var(--color-text-muted-hover);
+  background-size: 100% 100%;
 }
 
 .back-icon {
@@ -143,7 +145,6 @@ if (import.meta.client) {
 .aside-links {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
 .aside-title {
@@ -165,15 +166,21 @@ if (import.meta.client) {
   font-size: 0.875rem;
   letter-spacing: -0.04em;
   color: var(--color-text-muted);
-  transition: color 0.15s;
+  transition: all 0.25s ease-in-out;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+  background-size: 2px 100%;
+  background-image: linear-gradient(var(--color-bg-foreground), var(--color-bg-foreground));
 }
-
 .toc-link:hover {
-  color: var(--color-accent) !important;
+  color: var(--color-text);
+  background-size: 100% 100% !important;
+  background-image: linear-gradient(var(--color-accent-link), var(--color-accent-link)) !important;
 }
 
 .toc-link[data-active] {
   color: var(--color-text);
+  background-image: linear-gradient(var(--color-accent-link), var(--color-accent-link));
 }
 
 .toc-link:focus-visible {

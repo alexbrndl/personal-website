@@ -54,7 +54,7 @@ const displayLabel = computed(() => props.label || domain.value)
   margin-left: 1px;
   font-weight: 500;
   text-decoration: none;
-  color: inherit;
+  color: var(--color-text);
 }
 
 .smart-link:hover {

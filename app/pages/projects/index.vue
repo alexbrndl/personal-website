@@ -22,13 +22,12 @@ useSeoMeta({
 
   <section class="projects-list">
     <h1 class="section-label">{{ t('home.studies') }}</h1>
-    <StudyCard
+    <UiStudyCard
       v-for="project in projects"
       :key="project.path"
       :to="`/${project.stem}`"
       :title="project.title"
       :meta="`${project.client ?? project.role} · ${formatDate(project.date)}`"
-      :description="project.description"
       :cover="project.cover"
     />
   </section>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BadgeCheck, Copy } from 'lucide-vue-next'
+import { Copy } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const year = new Date().getFullYear()
@@ -15,16 +15,11 @@ const year = new Date().getFullYear()
     </div>
 
     <div class="footer-right">
-      <div class="footer-status">
-        <span>{{ t('footer.status') }}</span>
-        <BadgeCheck class="footer-icon" />
-      </div>
-
-      <nav aria-label="Liens sociaux" class="footer-nav">
+      <nav :aria-label="t('footer.socialNav')" class="footer-nav">
         <a
           href="mailto:alexandre@revemieux.fr"
-          aria-label="Envoyer un email à alexandre@revemieux.fr"
-          class="footer-email"
+          :aria-label="t('footer.emailAriaLabel')"
+          class="footer-email link"
         >
           <Copy class="footer-icon" aria-hidden="true" />
           alexandre@revemieux.fr
@@ -33,7 +28,7 @@ const year = new Date().getFullYear()
           href="https://www.linkedin.com/in/alexandre-brondel/"
           target="_blank"
           rel="noopener noreferrer"
-          class="footer-link"
+          class="footer-link link"
         >
           LinkedIn
         </a>
@@ -41,7 +36,7 @@ const year = new Date().getFullYear()
           href="https://github.com/alexbrndl"
           target="_blank"
           rel="noopener noreferrer"
-          class="footer-link"
+          class="footer-link link"
         >
           Github
         </a>
@@ -49,7 +44,7 @@ const year = new Date().getFullYear()
           href="https://figma.com/@alexbrndl"
           target="_blank"
           rel="noopener noreferrer"
-          class="footer-link"
+          class="footer-link link"
         >
           Figma
         </a>
@@ -104,15 +99,6 @@ const year = new Date().getFullYear()
   }
 }
 
-.footer-status {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 1rem;
-  letter-spacing: -0.04em;
-  color: var(--color-accent);
-}
-
 .footer-icon {
   width: 1rem;
   height: 1rem;
@@ -122,7 +108,7 @@ const year = new Date().getFullYear()
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
   border-radius: 0.25rem;
 }
 
@@ -130,11 +116,12 @@ const year = new Date().getFullYear()
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  background-color: var(--color-bg-accent);
   padding: 0.125rem 0.25rem;
   font-size: 1rem;
   letter-spacing: -0.04em;
   color: var(--color-accent);
+  background-color: var(--color-bg-accent);
+  background-size: 100% 0px;
 }
 
 .footer-link {
@@ -142,12 +129,12 @@ const year = new Date().getFullYear()
   font-size: 1rem;
   letter-spacing: -0.04em;
   color: var(--color-text-muted);
-  transition: all 0.15s;
+  background-size: 100% 0px;
 }
 
+.footer-email:hover,
 .footer-link:hover {
-  color: var(--color-text-hover);
-  background-color: var(--color-bg-hover);
+  background-size: 100% 100%;
 }
 
 .footer-email:focus-visible,

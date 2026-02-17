@@ -2,14 +2,17 @@
 const { t } = useI18n()
 const route = useRoute()
 
+const isHome = computed(() => route.path === '/')
+
 const links = computed(() => [
   { to: '/', label: t('nav.home') },
   { to: '/#etudes', label: t('nav.projects') },
-  { to: '/gallery', label: t('nav.gallery') },
+  { to: isHome.value ? '/#craft' : '/craft', label: t('nav.craft') },
 ])
 
 function isActive(to: string) {
   if (to === '/') return route.path === '/'
+  if (to === '/#craft') return route.path.startsWith('/craft')
   return route.path.startsWith(to)
 }
 </script>
@@ -20,7 +23,7 @@ function isActive(to: string) {
       <li v-for="link in links" :key="link.to">
         <NuxtLink
           :to="link.to"
-          class="nav-link"
+          class="nav-link link"
           :class="{ 'nav-link--active': isActive(link.to) }"
         >
           {{ link.label }}
@@ -34,13 +37,16 @@ function isActive(to: string) {
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .nav-link {
   padding: 0.125rem 0.25rem;
-  border-radius: 0.125rem;
-  transition: color 0.15s, background-color 0.15s;
+  background-size: 100% 0px;
+}
+
+.nav-link:hover {
+  background-size: 100% 100%;
 }
 
 .nav-link:focus-visible {
@@ -48,12 +54,8 @@ function isActive(to: string) {
   outline-offset: 2px;
 }
 
-.nav-link:not(.nav-link--active):hover {
-  background-color: var(--color-bg-accent-hover);
-}
-
 .nav-link--active {
-  background-color: var(--color-bg-accent);
   color: var(--color-accent);
+  background-color: var(--color-bg-accent);
 }
 </style>

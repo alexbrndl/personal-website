@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDownRight } from 'lucide-vue-next'
+import { ArrowDownRight, MousePointerClick, Image } from 'lucide-vue-next'
 
 const { t } = useI18n()
 
@@ -15,10 +15,32 @@ if (error.value) {
   console.error('Failed to fetch featured projects:', error.value)
 }
 
+const { data: craftItems } = await useAsyncData('featured-craft', () =>
+  queryCollection('craft')
+    .where('featured', '=', true)
+    .order('date', 'DESC')
+    .limit(3)
+    .all()
+)
+
 const { data: galleryImages } = await useAsyncData('home-gallery', () =>
   queryCollection('gallery')
     .limit(4)
     .all()
+)
+
+const activeFilter = ref('all')
+
+const displayedCraftItems = computed(() =>
+  activeFilter.value === 'visual' ? [] : (craftItems.value ?? [])
+)
+
+const displayedGalleryItems = computed(() =>
+  activeFilter.value === 'interactive' ? [] : (galleryImages.value ?? [])
+)
+
+const displayedCount = computed(() =>
+  displayedCraftItems.value.length + displayedGalleryItems.value.length
 )
 
 useSeoMeta({
@@ -33,84 +55,178 @@ useSeoMeta({
   <section class="bio">
     <h1 class="sr-only">{{ t('home.name') }} — {{ t('home.title') }}</h1>
 
+    <h2 class="bio-headline">
+      {{ t('home.bio.headline') }}<span class="cursor">_</span>
+    </h2>
     <p>
-      <strong>{{ t('home.bio.headline') }}</strong>
-    </p>
-    <p>{{ t('home.bio.intro') }}</p>
-    <p>{{ t('home.bio.clients') }}</p>
-    <p>
-      <i18n-t keypath="home.bio.agency" tag="span">
+      <i18n-t keypath="home.bio.body" tag="span">
+        <template #vueLink>
+          <UiSmartLink href="https://vuejs.org">Vue.js</UiSmartLink>
+        </template>
+        <template #nuxtLink>
+          <UiSmartLink href="https://nuxt.com">Nuxt</UiSmartLink>
+        </template>
         <template #agencyLink>
           <UiSmartLink href="https://revemieux.fr">{{ t('home.bio.agencyName') }}</UiSmartLink>
         </template>
       </i18n-t>
     </p>
-    <p>{{ t('home.bio.background') }}</p>
-    <p>{{ t('home.bio.philosophy') }}</p>
-    <p>{{ t('home.bio.discover') }}</p>
     <p>
-      <i18n-t keypath="home.bio.contact" tag="span">
-        <template #emailLink>
-          <a href="mailto:alexandre@revemieux.fr" class="bio-link">alexandre@revemieux.fr</a>
-        </template>
-        <template #linkedinLink>
-          <a href="https://www.linkedin.com/in/alexandre-brondel/" target="_blank" rel="noopener noreferrer" class="bio-link">@alexbrndl</a>
+      <i18n-t keypath="home.bio.background" tag="span">
+        <template #capgeminiLink>
+          <UiSmartLink href="https://www.capgemini.com">{{ t('home.bio.capgeminiName') }}</UiSmartLink>
         </template>
       </i18n-t>
     </p>
+    <p>{{ t('home.bio.today') }}</p>
+    <p>
+      <i18n-t keypath="home.bio.contact" tag="span">
+        <template #emailLink>
+          <a href="mailto:alexandre@revemieux.fr" class="link">alexandre@revemieux.fr</a>
+        </template>
+        <template #linkedinLink>
+          <a href="https://www.linkedin.com/in/alexandre-brondel/" target="_blank" rel="noopener noreferrer" class="link">@alexbrndl</a>
+        </template>
+      </i18n-t>
+    </p>
+    <span class="status-pill">
+      <span class="status-dot"></span>
+      {{ t('home.status') }}
+    </span>
   </section>
 
   <!-- Études (projects) -->
   <section v-if="projects?.length" id="etudes" class="section">
-    <p class="section-label">{{ t('home.studies') }}</p>
+    <h2 class="section-label">{{ t('home.studies') }}<UiTag>01</UiTag></h2>
 
-    <StudyCard
+    <UiStudyCard
       v-for="project in projects"
       :key="project.path"
       :to="`/${project.stem}`"
       :title="project.title"
-      :meta="`${project.client ?? project.role} · ${formatDate(project.date)}`"
-      :description="project.description"
+      :meta="`${formatDate(project.date)}`"
       :cover="project.cover"
       :url="project.url ?? ''"
       :tags="project.tags ?? []"
     />
   </section>
 
-  <!-- Gallerie preview -->
-  <section v-if="galleryImages?.length" class="section gallery-section">
-    <div class="gallery-header">
-      <p class="section-label">{{ t('home.gallery') }}</p>
-      <NuxtLink to="/gallery" class="gallery-more">
+  <!-- Craft + Gallery -->
+  <section v-if="craftItems?.length || galleryImages?.length" id="craft" class="section">
+    <NuxtLink to="/craft" class="section-header">
+      <h2 class="section-label">{{ t('home.craft') }}<UiTag>{{ String(displayedCount).padStart(2, '0') }}</UiTag></h2>
+      <span class="section-more link">
         {{ t('home.viewMore') }}
-        <ArrowDownRight class="gallery-more-icon" aria-hidden="true" />
-      </NuxtLink>
+        <ArrowDownRight class="section-more-icon" aria-hidden="true" />
+      </span>
+    </NuxtLink>
+
+    <div class="filters">
+      <button
+        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'all' }]"
+        @click="activeFilter = 'all'"
+      >
+        {{ t('home.filterAll') }}
+      </button>
+      <button
+        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'interactive' }]"
+        @click="activeFilter = 'interactive'"
+      >
+        <MousePointerClick class="filter-pill-icon" aria-hidden="true" />
+        {{ t('home.filterInteractive') }}
+      </button>
+      <button
+        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'visual' }]"
+        @click="activeFilter = 'visual'"
+      >
+        <Image class="filter-pill-icon" aria-hidden="true" />
+        {{ t('home.filterVisual') }}
+      </button>
     </div>
 
-    <div class="gallery-grid">
-      <div
-        v-for="img in galleryImages"
-        :key="img.id"
-        class="gallery-item"
-      >
-        <NuxtImg
-          :src="img.src"
-          :alt="img.alt"
-          loading="lazy"
-          class="gallery-img"
+    <Transition name="grid" mode="out-in">
+      <div :key="activeFilter" class="craft-grid">
+        <UiCraftCard
+          v-for="item in displayedCraftItems"
+          :key="item.path"
+          :to="`/${item.stem}`"
+          :title="item.title"
+          :date="item.date"
+          :component="item.component"
+          :cover="item.cover"
         />
+        <div
+          v-for="img in displayedGalleryItems"
+          :key="img.id"
+          class="gallery-card"
+        >
+          <div class="gallery-card-preview">
+            <NuxtImg
+              :src="img.src"
+              :alt="img.alt"
+              loading="lazy"
+              class="gallery-card-img"
+            />
+          </div>
+          <p v-if="img.description" class="gallery-card-caption">{{ img.description }}</p>
+        </div>
       </div>
-    </div>
+    </Transition>
   </section>
+
 </template>
 
 <style scoped>
-.bio p + p {
+.bio {
+  color: var(--color-text-muted);
+}
+
+.bio-headline {
+  font-size: inherit;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.bio p + p,
+.bio h2 + p {
   margin-top: 1rem;
 }
 
-.bio-link {
-  text-decoration: underline;
+.cursor {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  animation: blink 1500ms step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 1rem;
+  background-color: var(--color-bg-accent);
+  color: var(--color-accent);
+  margin-top: 1rem;
+}
+
+.status-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .section {
@@ -121,56 +237,139 @@ useSeoMeta({
 }
 
 .section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: normal;
   color: var(--color-text-muted);
 }
 
-.gallery-header {
+.section > .section-label {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.gallery-section {
-  position: relative;
-  cursor: pointer;
-}
-
-.gallery-more {
+.section-more {
   display: flex;
   align-items: center;
   font-size: 0.875rem;
   color: var(--color-text-muted);
-  transition: color 0.15s;
+  background-size: 100% 0px;
 }
 
-.gallery-more::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+.section-header:hover .section-more {
+  background-size: 100% 100%;
 }
 
-.gallery-section:hover .gallery-more {
-  color: var(--color-text-hover);
-}
-
-.gallery-more-icon {
+.section-more-icon {
   width: 1rem;
   height: 1rem;
 }
 
-.gallery-grid {
+.filters {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  background-color: transparent;
+  color: var(--color-text-muted);
+}
+
+.filter-pill:hover {
+  color: var(--color-text);
+}
+
+.filter-pill--active {
+  background-color: var(--color-bg-accent);
+  color: var(--color-accent);
+}
+
+.filter-pill-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.craft-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 
-.gallery-item {
+@media (max-width: 640px) {
+  .craft-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Filter transition */
+.grid-enter-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.grid-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.grid-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.grid-leave-to {
+  opacity: 0;
+}
+
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gallery-card-preview {
   aspect-ratio: 14 / 9;
   overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  transition: border-color 0.3s;
 }
 
-.gallery-img {
+.gallery-card:hover .gallery-card-preview {
+  border-color: var(--color-text-muted);
+}
+
+.gallery-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-card:hover .gallery-card-img {
+  transform: scale(1.03);
+}
+
+.gallery-card-caption {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
 }
 </style>
