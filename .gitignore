@@ -25,6 +25,7 @@ logs
 
 # Claude Code local config
 .claude.local.md
+.claude/
 
 # Dev-only test page
 app/pages/test.vue
