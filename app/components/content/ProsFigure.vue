@@ -25,7 +25,8 @@ figure {
   gap: 0.5rem;
 }
 
-figure img {
+figure img,
+figure video {
   width: 100%;
   border-radius: 0.5rem;
   border: 1px solid var(--color-border);

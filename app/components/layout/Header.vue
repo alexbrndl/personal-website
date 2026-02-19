@@ -61,7 +61,7 @@ const isHome = computed(() => route.path === '/')
   height: 3rem;
   overflow: hidden;
   border-radius: 0.125rem;
-  background-color: var(--color-bg-foreground);
+  background-color: var(--color-bg-subtle);
 }
 
 .avatar-img {

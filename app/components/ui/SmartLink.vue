@@ -62,7 +62,7 @@ const displayLabel = computed(() => props.label || domain.value)
   height: 100%;
   left: -2px;
   top: 0;
-  background-color: var(--color-bg-foreground);
+  background-color: var(--color-bg-subtle);
   border-radius: 0.375rem;
   z-index: -1;
   pointer-events: none;
@@ -72,7 +72,7 @@ const displayLabel = computed(() => props.label || domain.value)
   content: '';
   position: absolute;
   inset: 0;
-  background-color: var(--color-bg-foreground-hover);
+  background-color: var(--color-bg-subtle-hover);
   border-radius: inherit;
   opacity: 0;
   transform: scale(0.5);

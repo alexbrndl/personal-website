@@ -49,14 +49,15 @@ export default defineNuxtPlugin(() => {
     const path = href.slice(0, hashIndex)
     if (path && path !== window.location.pathname) return
 
-    if (!window.location.pathname.startsWith('/projects/')) return
+    if (!window.location.pathname.startsWith('/projects/') && !window.location.pathname.startsWith('/craft/')) return
 
     const hash = href.slice(hashIndex)
     setTimeout(() => highlight(hash), 100)
   })
 
   // Highlight on initial load with hash
-  if (window.location.pathname.startsWith('/projects/') && window.location.hash) {
+  const path = window.location.pathname
+  if ((path.startsWith('/projects/') || path.startsWith('/craft/')) && window.location.hash) {
     setTimeout(() => highlight(window.location.hash), 300)
   }
 })

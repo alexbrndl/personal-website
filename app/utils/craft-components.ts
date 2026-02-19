@@ -1,3 +1,3 @@
-export const craftComponentNames = ['ButtonMicro', 'TextRevealDemo'] as const
+export const craftComponentNames = ['ButtonMicro', 'FloatingToolbar'] as const
 
 export type CraftComponentName = (typeof craftComponentNames)[number]

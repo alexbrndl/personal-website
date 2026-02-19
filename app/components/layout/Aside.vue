@@ -170,17 +170,17 @@ if (import.meta.client) {
   padding-block: 0.25rem;
   padding-inline: 0.5rem;
   background-size: 2px 100%;
-  background-image: linear-gradient(var(--color-bg-foreground), var(--color-bg-foreground));
+  background-image: linear-gradient(var(--color-bg-subtle), var(--color-bg-subtle));
 }
 .toc-link:hover {
   color: var(--color-text);
-  background-size: 100% 100% !important;
-  background-image: linear-gradient(var(--color-accent-link), var(--color-accent-link)) !important;
+  background-size: 100% 100%;
+  background-image: linear-gradient(var(--color-bg-subtle), var(--color-bg-subtle));
 }
 
 .toc-link[data-active] {
   color: var(--color-text);
-  background-image: linear-gradient(var(--color-accent-link), var(--color-accent-link));
+  background-image: linear-gradient(var(--color-accent-underline), var(--color-accent-underline));
 }
 
 .toc-link:focus-visible {

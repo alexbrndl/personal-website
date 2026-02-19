@@ -16,13 +16,8 @@ const isVideo = computed(() =>
   <article class="craft-card">
     <NuxtLink :to="to" class="craft-card-link">
       <div class="craft-card-preview">
-        <component
-          v-if="component"
-          :is="component"
-          class="craft-card-demo"
-        />
         <video
-          v-else-if="cover && isVideo"
+          v-if="cover && isVideo"
           :src="cover"
           class="craft-card-cover"
           autoplay
@@ -36,6 +31,11 @@ const isVideo = computed(() =>
           :alt="title"
           class="craft-card-cover"
           loading="lazy"
+        />
+        <component
+          v-else-if="component"
+          :is="component"
+          class="craft-card-demo"
         />
       </div>
       <div class="craft-card-info">
@@ -63,8 +63,8 @@ const isVideo = computed(() =>
   aspect-ratio: 14 / 9;
   overflow: hidden;
   border-radius: 0.5rem;
-  border: 1px solid transparent;
-  background-color: var(--color-bg-foreground);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@ const isVideo = computed(() =>
 }
 
 .craft-card:hover .craft-card-preview {
-  border-color: var(--color-text-muted);
+  border-color: var(--color-accent);
 }
 
 .craft-card-demo {

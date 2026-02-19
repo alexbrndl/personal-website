@@ -59,7 +59,7 @@ const domain = computed(() => props.url ? extractDomain(props.url) : null)
 }
 
 .study-card:hover {
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-bg-subtle-hover);
 }
 
 .study-card-layout {

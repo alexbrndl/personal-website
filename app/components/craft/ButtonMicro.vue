@@ -479,7 +479,7 @@ if (import.meta.client) {
   background:
     radial-gradient(
       circle 80px at var(--glow-x, 50%) var(--glow-y, 50%),
-      color-mix(in srgb, var(--color-accent-link) 0%, transparent),
+      color-mix(in srgb, var(--color-accent-underline) 0%, transparent),
       transparent
     ),
     var(--color-bg);
@@ -489,7 +489,7 @@ if (import.meta.client) {
   background:
     radial-gradient(
       circle 80px at var(--glow-x, 50%) var(--glow-y, 50%),
-      color-mix(in srgb, var(--color-accent-link) 50%, transparent),
+      color-mix(in srgb, var(--color-accent-underline) 50%, transparent),
       transparent
     ),
     var(--color-bg-hover);

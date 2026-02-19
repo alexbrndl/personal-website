@@ -32,14 +32,23 @@ useSeoMeta({
   />
 
   <section v-if="item" class="craft-section">
-    <div class="craft-header">
-      <h1 class="craft-title">{{ item.title }}</h1>
-      <p class="craft-meta">
-        {{ formatDate(item.date) }}
-      </p>
-      <div v-if="item.tags?.length" class="craft-tags">
-        <UiTag v-for="tag in item.tags" :key="tag">{{ tag }}</UiTag>
+    <div class="craft-info">
+      <div class="craft-header">
+        <h1 class="craft-title">{{ item.title }}</h1>
+        <p class="craft-meta">
+          {{ formatDate(item.date) }}
+        </p>
+        <div v-if="item.tags?.length" class="craft-tags">
+          <UiTag v-for="tag in item.tags" :key="tag">{{ tag }}</UiTag>
+        </div>
       </div>
+
+      <ProsFigure
+        v-if="item.cover"
+        :src="item.cover"
+        :alt="item.title"
+        :caption="item.description"
+      />
     </div>
 
     <div class="prose">
@@ -54,11 +63,17 @@ useSeoMeta({
   flex-direction: column;
 }
 
+.craft-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
 .craft-header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-bottom: 2rem;
 }
 
 .craft-title {

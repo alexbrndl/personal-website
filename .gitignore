@@ -28,3 +28,6 @@ logs
 
 # Dev-only test page
 app/pages/test.vue
+
+# Plans and docs (local only)
+docs/

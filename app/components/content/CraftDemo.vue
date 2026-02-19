@@ -2,11 +2,11 @@
 import gsap from 'gsap'
 import type { CraftComponentName } from '~/utils/craft-components'
 import ButtonMicro from '~/components/craft/ButtonMicro.vue'
-import TextRevealDemo from '~/components/craft/TextRevealDemo.vue'
+import FloatingToolbar from '~/components/craft/FloatingToolbar.vue'
 
 const componentMap: Record<CraftComponentName, Component> = {
   ButtonMicro,
-  TextRevealDemo,
+  FloatingToolbar,
 }
 
 const props = defineProps<{
@@ -60,7 +60,7 @@ onUnmounted(() => {
   width: 100%;
   border-radius: 0.5rem;
   border: 1px solid var(--color-border);
-  background-color: var(--color-bg-backdrop);
+  background-color: var(--color-bg-subtle);
   overflow: hidden;
   /* Reset inherited .prose styles */
   color: var(--color-text);
@@ -80,13 +80,13 @@ onUnmounted(() => {
   font-family: var(--font-mono);
   cursor: pointer;
   border: 1px solid var(--color-border);
-  background-color: var(--color-bg-foreground);
+  background-color: var(--color-bg-subtle);
   color: var(--color-text-muted);
   transition: background-color 0.15s ease;
 }
 
 .craft-demo-slow:hover {
-  background-color: var(--color-bg-foreground-hover);
+  background-color: var(--color-bg-subtle-hover);
 }
 
 .craft-demo-legend {
