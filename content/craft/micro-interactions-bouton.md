@@ -17,7 +17,7 @@ Un bouton, c'est le point de contact le plus courant entre un utilisateur et une
 
 ## Contexte
 
-Je me suis souvent retrouvé à copier-coller des snippets d'animation de bouton d'un projet à l'autre sans vraiment les comprendre ou les pousser. L'idée ici, c'est de prendre le temps d'explorer chaque technique en profondeur : partir du feedback CSS le plus simple et progresser vers des effets plus ambitieux avec GSAP.
+Je me suis souvent retrouvé à copier-coller des snippets d'animation de bouton d'un projet à l'autre sans vraiment les comprendre ou les pousser. L'idée ici, c'est de partir du feedback CSS le plus simple et progresser vers des effets plus ambitieux avec GSAP.
 
 ## Le feedback de base
 
@@ -36,7 +36,7 @@ L'écart est volontairement faible. Au-delà de 2%, ça devient caricatural. La 
 
 :craft-demo{is="ButtonMicro" variant="ripple" show-slow legend="Cliquez plusieurs fois à différents endroits du bouton"}
 
-À chaque clic, on calcule la position relative du curseur via `getBoundingClientRect()`, on pousse un objet `{ id, x, y }` dans un tableau réactif, et GSAP anime le `<span>` correspondant en `scale: 4` + `opacity: 0`.
+Le ripple naît à la position exacte du clic, ce qui demande de convertir les coordonnées du curseur en position relative au bouton.
 
 ```ts
 ripples.value.push({ id, x, y })
@@ -53,13 +53,13 @@ nextTick(() => {
 })
 ```
 
-Le `nextTick` est crucial : Vue doit d'abord rendre le `<span>` avant que GSAP puisse le cibler. En `onComplete`, on retire le ripple du tableau pour nettoyer le DOM.
+Le `nextTick` est crucial : Vue doit d'abord rendre le `<span>` avant que GSAP puisse le cibler.
 
-## La machine d'états
+## Les trois états du bouton
 
 :craft-demo{is="ButtonMicro" variant="states" show-slow legend="Cliquez pour lancer la séquence idle → loading → success → idle"}
 
-La tentation c'est d'utiliser des booléens (`isLoading`, `isSuccess`), mais rien n'empêche d'avoir les deux à `true`. Un type union résout ça. Un seul ref, un seul état possible :
+La tentation c'est d'utiliser des booléens (`isLoading`, `isSuccess`), mais rien n'empêche d'avoir les deux à `true`. Un type union résout ça. Un seul ref, un seul état possible (je réutilise ce pattern dans le [bouton Send de la floating toolbar](/craft/floating-toolbar#la-machine-d%C3%A9tats-du-send)) :
 
 ```ts
 type ButtonState = 'idle' | 'loading' | 'success'
@@ -68,7 +68,7 @@ const buttonState = ref<ButtonState>('idle')
 
 Le contenu change via `<Transition name="fade" mode="out-in">`. Le `mode="out-in"` garantit que l'ancien sort avant que le nouveau entre. Sans ça, les deux coexistent un instant et le bouton "saute".
 
-## Les transitions GSAP
+## Transitions d'état avec GSAP
 
 :craft-demo{is="ButtonMicro" variant="loading-success" show-slow legend="Cliquez, comparez avec la version CSS au-dessus : le check bounce, le fond s'anime"}
 
@@ -82,7 +82,7 @@ Les classes CSS ne suffisent plus dès qu'on veut un bounce pour le succès et u
 </Transition>
 ```
 
-Le hook `@leave` reçoit l'élément et un callback `done`. On anime la sortie, puis `done()` dit à Vue de retirer l'élément. Chaque état a sa propre animation : fondu simple pour idle, shrink pour le spinner, et pour success → idle, on anime aussi le `backgroundColor` du bouton.
+Chaque état a sa propre animation : fondu simple pour idle, shrink pour le spinner, et pour success → idle, on anime aussi le `backgroundColor` du bouton.
 
 ```ts
 function lsEnter(el: Element, done: () => void) {

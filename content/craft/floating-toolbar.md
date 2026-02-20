@@ -2,7 +2,7 @@
 title: Toolbar contextuelle flottante
 component: FloatingToolbar
 cover: /videos/craft/floating-toolbar.webm
-date: 2026-02-20
+date: 2026-02-19
 description: Une toolbar de formatage qui pivote entre un panneau d'édition et un panneau AI via une animation CSS Grid, sans JavaScript pour les transitions.
 featured: true
 tags:
@@ -51,7 +51,7 @@ L'astuce tient en deux lignes :
 }
 ```
 
-Quand on passe en mode AI, la colonne 1 passe de `1fr` à `0fr` et la colonne 3 fait l'inverse. Le bouton central reste en `auto` : il ne bouge pas, il sert de pivot. CSS Grid interpole nativement entre les valeurs `fr`, donc la transition est fluide sans aucun JavaScript.
+CSS Grid interpole nativement entre les valeurs `fr`, donc la transition est fluide sans aucun JavaScript.
 
 Le `0fr` plutôt que `0px` est important. Avec `0px`, la colonne disparait d'un coup. Avec `0fr`, elle se réduit progressivement parce que Grid continue de la traiter comme une fraction de l'espace disponible, même quand cette fraction vaut zéro.
 
@@ -71,7 +71,7 @@ onMounted(() => {
 })
 ```
 
-Deux mesures sont nécessaires. `toolbarWidth` verrouille le conteneur pour que sa taille ne change jamais. `formatWidth` capture la largeur du panneau de formatage et l'applique au panneau AI, pour que les deux occupent exactement le même espace. Sans cette égalité, le contenu du panneau AI forcerait une largeur différente et la toolbar sauterait à la fin de la transition.
+Deux mesures sont nécessaires. `toolbarWidth` verrouille le conteneur pour que sa taille ne change jamais. `formatWidth` capture la largeur du panneau de formatage et l'applique au panneau AI, pour que les deux occupent exactement le même espace.
 
 Le calcul de `formatWidth` soustrait la largeur du séparateur et ajuste le `gap`, parce que le panneau AI a un `gap` de 6px entre l'input et le bouton send, alors que le panneau de formatage a un espacement différent entre ses éléments.
 
@@ -105,7 +105,7 @@ variant: toolbar
 ---
 ::
 
-Le bouton "Ask AI" est le seul élément qui ne bouge pas pendant la transition. Il reste en colonne 2 (`auto`), donc sa position est déterminée par son propre contenu, pas par l'espace alloué. C'est le point d'ancrage visuel de toute l'animation.
+Le bouton "Ask AI" est le seul élément qui ne bouge pas pendant la transition, ce qui en fait le point d'ancrage visuel de toute l'animation.
 
 Son `border-radius` suit la direction du panneau actif. En mode formatage, le bord arrondi est à droite (`6px 16px 16px 6px`) pour indiquer que le contenu est à gauche. En mode AI, il bascule à gauche (`16px 6px 6px 16px`). Ce détail oriente visuellement le regard vers le panneau actif.
 
@@ -124,7 +124,7 @@ Le label du bouton alterne entre "Ask AI" et "Close AI" avec un flip vertical. L
 
 ## La machine d'états du send
 
-Le bouton d'envoi traverse trois états : `idle`, `loading`, `success`. Le même pattern de type union que j'avais exploré dans [les micro-interactions de bouton](/craft/micro-interactions-bouton#la-machine-d%C3%A9tats) empêche les états contradictoires.
+Le bouton d'envoi traverse trois états : `idle`, `loading`, `success`. Le même pattern de type union que j'avais exploré dans [les micro-interactions de bouton](/craft/micro-interactions-bouton#les-trois-%C3%A9tats-du-bouton) empêche les états contradictoires.
 
 ```ts
 const sendState = ref<'idle' | 'loading' | 'success'>('idle')
@@ -143,7 +143,7 @@ function handleSend() {
 }
 ```
 
-L'icône change via `<Transition>` avec un effet de scale + blur. Chaque icône entre en grossissant depuis 25% avec un flou de 4px, et sort de la même manière. Le `position: absolute` sur l'état sortant permet aux deux icônes de coexister brièvement sans décaler le bouton.
+L'icône change via `<Transition>` avec un effet de scale + blur, le même pattern que je [déconstruis couche par couche](/craft/animating-icons#lanimation-compl%C3%A8te) dans le craft sur les transitions d'icônes. Le `position: absolute` sur l'état sortant permet aux deux icônes de coexister brièvement sans décaler le bouton.
 
 ```css
 .send-icon-enter-from {
@@ -152,8 +152,6 @@ L'icône change via `<Transition>` avec un effet de scale + blur. Chaque icône 
   filter: blur(4px);
 }
 ```
-
-Le blur donne l'impression que l'icône "se matérialise", un effet plus organique qu'un simple fondu.
 
 ## Le shimmer AI
 
@@ -172,7 +170,9 @@ Quand le mode AI est actif, le texte sélectionné passe en dégradé animé dan
 }
 ```
 
-Le gradient est doublé (`background-size: 200%`) pour que le défilement crée une boucle continue. Sans ça, l'animation saute à chaque cycle. Le `-webkit-text-fill-color: transparent` est nécessaire en plus de `background-clip: text` pour que le dégradé soit visible à travers le texte dans tous les navigateurs.
+Le gradient est doublé (`background-size: 200%`) pour que le défilement crée une boucle continue. Sans ça, l'animation saute à chaque cycle.
+
+Le `-webkit-text-fill-color: transparent` est nécessaire en plus de `background-clip: text` pour que le dégradé soit visible à travers le texte dans tous les navigateurs.
 
 J'ai eu un problème avec le dark mode : les mêmes teintes de vert ne fonctionnaient pas sur fond sombre. Les variantes `malachite-300`/`500` étaient trop sombres et le texte devenait illisible. La solution a été de passer à `malachite-200`/`600` en dark mode via un sélecteur `html.dark`, ce qui élargit le contraste du gradient.
 
@@ -189,6 +189,6 @@ if (markEl.value && contentEl.value) {
 }
 ```
 
-Le `left` centre la toolbar horizontalement sur le mot, combiné avec un `transform: translateX(-50%)` en CSS. Le `bottom` la place 16px au-dessus du texte. Ces valeurs sont calculées une seule fois et ne changent pas, parce que le layout du texte est statique. Sur un vrai éditeur, il faudrait recalculer à chaque scroll ou redimensionnement.
+Ces valeurs sont calculées une seule fois et ne changent pas, parce que le layout du texte est statique. Sur un vrai éditeur, il faudrait recalculer à chaque scroll ou redimensionnement.
 
-L'apparition et la disparition de la toolbar utilisent un combo `opacity` + `transform` : elle entre en fondu tout en montant légèrement et en grossissant depuis 80%. La disparition fait l'inverse, avec un `pointer-events: none` pour éviter que la toolbar invisible ne bloque les clics.
+L'apparition et la disparition combinent `opacity`, `translate` et `scale`. Le `pointer-events: none` sur l'état caché évite que la toolbar invisible ne bloque les clics.
