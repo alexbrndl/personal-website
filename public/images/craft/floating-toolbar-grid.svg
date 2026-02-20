@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" fill="none">
+  <style>
+    text { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', monospace; }
+    .title { font-size: 10px; fill: #999; letter-spacing: 0.12em; }
+    .val { font-size: 13px; fill: #bbb; font-weight: 600; }
+    .arrow { font-size: 10px; fill: #666; letter-spacing: 0.02em; }
+  </style>
+
+  <!-- FORMAT MODE -->
+  <text x="350" y="46" text-anchor="middle" class="title">FORMAT MODE</text>
+
+  <!-- Outer container (toolbar) -->
+  <rect x="62" y="58" width="576" height="72" rx="36" stroke="#555" stroke-width="1" stroke-dasharray="5 4" fill="none" />
+
+  <!-- Col 1: Format panel -->
+  <rect x="78" y="70" width="420" height="48" rx="10" stroke="#444" stroke-width="1" stroke-dasharray="4 3" fill="none" />
+  <circle cx="106" cy="94" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+  <circle cx="138" cy="94" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+  <circle cx="170" cy="94" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+  <line x1="198" y1="86" x2="380" y2="86" stroke="#444" stroke-width="6" stroke-linecap="round" />
+  <line x1="198" y1="102" x2="330" y2="102" stroke="#444" stroke-width="6" stroke-linecap="round" />
+  <circle cx="428" cy="94" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+  <circle cx="460" cy="94" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+
+  <!-- Col 2: AI Button (pivot) -->
+  <rect x="510" y="74" width="72" height="40" rx="20" fill="#1f2f1f" stroke="#4a6a4a" stroke-width="1.5" />
+  <circle cx="532" cy="94" r="5" fill="#4ade80" />
+  <line x1="546" y1="94" x2="570" y2="94" stroke="#4ade80" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+
+  <!-- Column value labels -->
+  <text x="280" y="152" text-anchor="middle" class="val">1fr</text>
+  <text x="546" y="152" text-anchor="middle" class="val">auto</text>
+  <text x="622" y="152" text-anchor="middle" class="val">0fr</text>
+
+  <!-- Bracket lines -->
+  <line x1="78" y1="140" x2="498" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="78" y1="136" x2="78" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="498" y1="136" x2="498" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="510" y1="140" x2="582" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="510" y1="136" x2="510" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="582" y1="136" x2="582" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="618" y1="140" x2="626" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="618" y1="136" x2="618" y2="140" stroke="#555" stroke-width="0.75" />
+  <line x1="626" y1="136" x2="626" y2="140" stroke="#555" stroke-width="0.75" />
+
+  <!-- Transition arrow + label -->
+  <line x1="350" y1="164" x2="350" y2="184" stroke="#666" stroke-width="0.75" />
+  <text x="350" y="200" text-anchor="middle" class="arrow">transition: grid-template-columns</text>
+  <line x1="350" y1="206" x2="350" y2="218" stroke="#666" stroke-width="0.75" />
+  <polygon points="346,218 354,218 350,224" fill="#666" />
+
+  <!-- AI MODE -->
+  <text x="350" y="244" text-anchor="middle" class="title">AI MODE</text>
+
+  <!-- Outer container (toolbar) -->
+  <rect x="62" y="256" width="576" height="72" rx="36" stroke="#555" stroke-width="1" stroke-dasharray="5 4" fill="none" />
+
+  <!-- Col 1: Collapsed sliver -->
+  <rect x="78" y="276" width="3" height="32" rx="1.5" fill="#444" opacity="0.3" />
+
+  <!-- Col 2: AI Button (pivot) -->
+  <rect x="93" y="272" width="72" height="40" rx="20" fill="#1f2f1f" stroke="#4a6a4a" stroke-width="1.5" />
+  <circle cx="115" cy="292" r="5" fill="#4ade80" />
+  <line x1="129" y1="292" x2="153" y2="292" stroke="#4ade80" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+
+  <!-- Col 3: AI Panel -->
+  <rect x="177" y="268" width="449" height="48" rx="10" stroke="#444" stroke-width="1" stroke-dasharray="4 3" fill="none" />
+  <line x1="198" y1="286" x2="450" y2="286" stroke="#444" stroke-width="6" stroke-linecap="round" />
+  <line x1="198" y1="302" x2="380" y2="302" stroke="#444" stroke-width="6" stroke-linecap="round" />
+  <circle cx="566" cy="292" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+  <circle cx="598" cy="292" r="12" stroke="#555" stroke-width="1" stroke-dasharray="3 2" fill="none" />
+
+  <!-- Column value labels -->
+  <text x="80" y="350" text-anchor="middle" class="val">0fr</text>
+  <text x="129" y="350" text-anchor="middle" class="val">auto</text>
+  <text x="402" y="350" text-anchor="middle" class="val">1fr</text>
+
+  <!-- Bracket lines -->
+  <line x1="78" y1="338" x2="81" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="78" y1="334" x2="78" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="81" y1="334" x2="81" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="93" y1="338" x2="165" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="93" y1="334" x2="93" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="165" y1="334" x2="165" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="177" y1="338" x2="626" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="177" y1="334" x2="177" y2="338" stroke="#555" stroke-width="0.75" />
+  <line x1="626" y1="334" x2="626" y2="338" stroke="#555" stroke-width="0.75" />
+</svg>

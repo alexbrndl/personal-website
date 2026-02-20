@@ -30,6 +30,7 @@ figure video {
   width: 100%;
   border-radius: 0.5rem;
   border: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
   margin: 0;
 }
 

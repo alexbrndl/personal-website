@@ -7,6 +7,15 @@ import {
   ToolbarToggleItem,
 } from 'reka-ui'
 import { ArrowUp, Loader2, Check, Link, ChevronDown } from 'lucide-vue-next'
+
+// Props
+
+interface Props {
+  variant?: 'text' | 'toolbar'
+}
+
+const { variant } = defineProps<Props>()
+
 // State
 
 const aiMode = ref(false)
@@ -21,7 +30,7 @@ const toolbarWidth = ref<number | null>(null)
 const formatWidth = ref<number | null>(null)
 const toolbarLeft = ref<number | null>(null)
 const toolbarBottom = ref<number | null>(null)
-const slow = ref(false)
+const slow = variant ? useState('craft-demo-slow', () => false) : ref(false)
 
 // Computed
 
@@ -39,6 +48,9 @@ const highlightStyle = computed(() => {
 // Lock toolbar width on mount
 
 onMounted(() => {
+  if (variant === 'toolbar') {
+    toolbarVisible.value = true
+  }
   if (toolbarEl.value) {
     toolbarWidth.value = toolbarEl.value.offsetWidth
     const formatEl = toolbarEl.value.querySelector('.toolbar-format-inner') as HTMLElement | null
@@ -84,6 +96,11 @@ function handleSend() {
         sendState.value = 'idle'
         aiMode.value = false
         prompt.value = ''
+        if (variant === 'toolbar') {
+          setTimeout(() => {
+            toolbarVisible.value = true
+          }, 1000)
+        }
       }, 300)
     }, 800)
   }, 1500)
@@ -92,10 +109,8 @@ function handleSend() {
 // Toggle toolbar
 
 function handleTextClick() {
+  toolbarVisible.value = !toolbarVisible.value
   if (toolbarVisible.value) {
-    toolbarVisible.value = false
-  } else {
-    toolbarVisible.value = true
     aiMode.value = false
     sendState.value = 'idle'
     prompt.value = ''
@@ -104,12 +119,15 @@ function handleTextClick() {
 </script>
 
 <template>
-  <div class="floating-toolbar-demo" :style="{ '--toolbar-duration': slow ? '4s' : '0.8s' }">
-    <div ref="contentEl" class="demo-content">
+  <div class="floating-toolbar-demo" :class="{ 'floating-toolbar-demo--variant': variant }" :style="{ '--toolbar-duration': slow ? '4s' : '0.8s' }">
+    <div ref="contentEl" :class="variant === 'toolbar' ? 'demo-toolbar-standalone' : 'demo-content'">
       <div
         class="toolbar-wrapper"
-        :class="{ 'toolbar-wrapper--hidden': !toolbarVisible }"
-        :style="toolbarLeft != null && toolbarBottom != null
+        :class="{
+          'toolbar-wrapper--hidden': !toolbarVisible,
+          'toolbar-wrapper--static': variant === 'toolbar',
+        }"
+        :style="variant !== 'toolbar' && toolbarLeft != null && toolbarBottom != null
           ? { left: `${toolbarLeft}px`, bottom: `${toolbarBottom}px` }
           : {}"
         @click.stop
@@ -119,91 +137,75 @@ function handleTextClick() {
           class="toolbar-sizer"
           :style="toolbarWidth ? { width: `${toolbarWidth}px` } : {}"
         >
-        <ToolbarRoot
-          class="toolbar"
-          :class="{ 'toolbar--ai': aiMode }"
-          aria-label="Text formatting"
-        >
-          <!-- Format panel (grid column 1) -->
-          <div class="toolbar-format">
-            <div class="toolbar-format-inner">
-              <ToolbarButton class="toolbar-btn toolbar-btn--select" disabled>
-                <span>Paragraph</span>
-                <ChevronDown :size="14" />
-              </ToolbarButton>
-
-              <ToolbarSeparator class="toolbar-separator" />
-
-              <ToolbarButton class="toolbar-btn" disabled>
-                <Link :size="14" />
-                <span>Link</span>
-              </ToolbarButton>
-
-              <ToolbarSeparator class="toolbar-separator" />
-
-              <ToolbarToggleGroup v-model="formats" type="multiple" class="toolbar-toggle-group">
-                <ToolbarToggleItem value="bold" class="toolbar-toggle toolbar-toggle--bold">
-                  B
-                </ToolbarToggleItem>
-                <ToolbarToggleItem value="italic" class="toolbar-toggle toolbar-toggle--italic">
-                  I
-                </ToolbarToggleItem>
-                <ToolbarToggleItem value="underline" class="toolbar-toggle toolbar-toggle--underline">
-                  U
-                </ToolbarToggleItem>
-                <ToolbarToggleItem value="strikethrough" class="toolbar-toggle toolbar-toggle--strike">
-                  S
-                </ToolbarToggleItem>
-              </ToolbarToggleGroup>
-
-              <ToolbarSeparator class="toolbar-separator" />
+          <ToolbarRoot
+            class="toolbar"
+            :class="{ 'toolbar--ai': aiMode }"
+            aria-label="Text formatting"
+          >
+            <div class="toolbar-format">
+              <div class="toolbar-format-inner">
+                <ToolbarButton class="toolbar-btn toolbar-btn--select" disabled>
+                  <span>Paragraph</span>
+                  <ChevronDown :size="14" />
+                </ToolbarButton>
+                <ToolbarSeparator class="toolbar-separator" />
+                <ToolbarButton class="toolbar-btn" disabled>
+                  <Link :size="14" />
+                  <span>Link</span>
+                </ToolbarButton>
+                <ToolbarSeparator class="toolbar-separator" />
+                <ToolbarToggleGroup v-model="formats" type="multiple" class="toolbar-toggle-group">
+                  <ToolbarToggleItem value="bold" class="toolbar-toggle toolbar-toggle--bold">B</ToolbarToggleItem>
+                  <ToolbarToggleItem value="italic" class="toolbar-toggle toolbar-toggle--italic">I</ToolbarToggleItem>
+                  <ToolbarToggleItem value="underline" class="toolbar-toggle toolbar-toggle--underline">U</ToolbarToggleItem>
+                  <ToolbarToggleItem value="strikethrough" class="toolbar-toggle toolbar-toggle--strike">S</ToolbarToggleItem>
+                </ToolbarToggleGroup>
+                <ToolbarSeparator class="toolbar-separator" />
+              </div>
             </div>
-          </div>
-
-          <!-- Pivot button (grid column 2) -->
-          <ToolbarButton class="toolbar-btn toolbar-btn--ai" :class="{ 'toolbar-btn--ai-active': aiMode }" @click="toggleAiMode">
-            <span class="toolbar-btn-ai-dot" />
-            <span class="toolbar-btn-ai-label">
-              <span class="toolbar-btn-ai-text" :class="{ 'toolbar-btn-ai-text--flipped': aiMode }">
-                <span class="toolbar-btn-ai-text-inner">Ask AI</span>
-                <span class="toolbar-btn-ai-text-inner">Close AI</span>
+            <ToolbarButton class="toolbar-btn toolbar-btn--ai" :class="{ 'toolbar-btn--ai-active': aiMode }" @click="toggleAiMode">
+              <span class="toolbar-btn-ai-dot" />
+              <span class="toolbar-btn-ai-label">
+                <span class="toolbar-btn-ai-text" :class="{ 'toolbar-btn-ai-text--flipped': aiMode }">
+                  <span class="toolbar-btn-ai-text-inner">Ask AI</span>
+                  <span class="toolbar-btn-ai-text-inner">Close AI</span>
+                </span>
               </span>
-            </span>
-          </ToolbarButton>
-
-          <!-- AI panel (grid column 3) -->
-          <div class="toolbar-ai">
-            <ToolbarSeparator class="toolbar-separator" />
-            <div class="toolbar-ai-inner" :style="formatWidth ? { width: `${formatWidth}px` } : {}">
-              <input
-                v-model="prompt"
-                class="toolbar-input"
-                type="text"
-                placeholder="Ask AI..."
-                @keydown.enter="handleSend"
-              >
-              <button
-                class="toolbar-send"
-                :aria-label="sendState === 'idle' ? 'Send' : sendState === 'loading' ? 'Sending' : 'Sent'"
-                :disabled="sendState !== 'idle'"
-                @click="handleSend"
-              >
-                <Transition name="send-icon" type="transition">
-                  <ArrowUp v-if="sendState === 'idle'" key="idle" :size="14" />
-                  <Loader2 v-else-if="sendState === 'loading'" key="loading" :size="14" class="spinner" />
-                  <Check v-else-if="sendState === 'success'" key="success" :size="14" />
-                </Transition>
-              </button>
+            </ToolbarButton>
+            <div class="toolbar-ai">
+              <ToolbarSeparator class="toolbar-separator" />
+              <div class="toolbar-ai-inner" :style="formatWidth ? { width: `${formatWidth}px` } : {}">
+                <input
+                  v-model="prompt"
+                  class="toolbar-input"
+                  type="text"
+                  placeholder="Ask AI..."
+                  @keydown.enter="handleSend"
+                >
+                <button
+                  class="toolbar-send"
+                  :aria-label="sendState === 'idle' ? 'Send' : sendState === 'loading' ? 'Sending' : 'Sent'"
+                  :disabled="sendState !== 'idle'"
+                  @click="handleSend"
+                >
+                  <Transition name="send-icon" type="transition">
+                    <ArrowUp v-if="sendState === 'idle'" key="idle" :size="14" />
+                    <Loader2 v-else-if="sendState === 'loading'" key="loading" :size="14" class="spinner" />
+                    <Check v-else-if="sendState === 'success'" key="success" :size="14" />
+                  </Transition>
+                </button>
+              </div>
             </div>
-          </div>
-        </ToolbarRoot>
+          </ToolbarRoot>
         </div>
       </div>
 
-      <div class="demo-text">
-        Highlight text in a modern text editor and a contextual
-        toolbar appears just above it. Toggle bold, italic,
-        or strikethrough on
+      <div v-if="variant !== 'toolbar'" class="demo-text" :class="{ 'demo-text--centered': variant === 'text' }">
+        <template v-if="!variant">
+          Highlight text in a modern text editor and a contextual
+          toolbar appears just above it. Toggle bold, italic,
+          or strikethrough on
+        </template>
         <mark
           ref="markEl"
           class="demo-highlight"
@@ -214,20 +216,17 @@ function handleTextClick() {
           :style="highlightStyle"
           @click="handleTextClick"
         >selected text</mark>
-        with one click, or ask the AI assistant to rewrite
-        and refine your highlighted passage from the toolbar.
+        <template v-if="!variant">
+          with one click, or ask the AI assistant to rewrite
+          and refine your highlighted passage from the toolbar.
+        </template>
       </div>
     </div>
-
-    <label class="slow-toggle">
-      <input v-model="slow" type="checkbox" class="slow-toggle-input">
-      <span class="slow-toggle-label">Slow</span>
-    </label>
   </div>
 </template>
 
 <style scoped>
-/*Demo layout */
+/* Demo layout */
 
 .floating-toolbar-demo {
   padding: 2rem 1.5rem;
@@ -235,11 +234,15 @@ function handleTextClick() {
   max-width: 540px;
 }
 
+.floating-toolbar-demo--variant {
+  max-width: none;
+}
+
 .demo-content {
   position: relative;
 }
 
-/*Toolbar wrapper (show/hide, absolute above text) */
+/* Toolbar wrapper (show/hide, absolute above text) */
 
 .toolbar-wrapper {
   position: absolute;
@@ -255,13 +258,13 @@ function handleTextClick() {
   pointer-events: none;
 }
 
-/*Toolbar sizer (locks width) */
+/* Toolbar sizer (locks width) */
 
 .toolbar-sizer {
   width: max-content;
 }
 
-/*Toolbar root (CSS Grid) */
+/* Toolbar root (CSS Grid) */
 
 .toolbar {
   position: relative;
@@ -292,8 +295,7 @@ function handleTextClick() {
   grid-template-columns: 0fr auto 1fr;
 }
 
-
-/*Format panel (grid column 1) */
+/* Format panel (grid column 1) */
 
 .toolbar-format {
   display: flex;
@@ -309,7 +311,7 @@ function handleTextClick() {
   flex-shrink: 0;
 }
 
-/*AI panel (grid column 3) */
+/* AI panel (grid column 3) */
 
 .toolbar-ai {
   display: flex;
@@ -326,7 +328,7 @@ function handleTextClick() {
   flex-shrink: 0;
 }
 
-/*Shared button base */
+/* Shared button base */
 
 .toolbar-btn {
   display: flex;
@@ -363,7 +365,7 @@ function handleTextClick() {
   gap: 2px;
 }
 
-/*Separator */
+/* Separator */
 
 .toolbar-separator {
   width: 1px;
@@ -373,7 +375,7 @@ function handleTextClick() {
   flex-shrink: 0;
 }
 
-/*Toggle group */
+/* Toggle group */
 
 .toolbar-toggle-group {
   display: flex;
@@ -427,7 +429,7 @@ function handleTextClick() {
   text-decoration: line-through;
 }
 
-/*AI button (pivot, grid column 2) */
+/* AI button (pivot, grid column 2) */
 
 .toolbar-btn--ai {
   flex-shrink: 0;
@@ -506,7 +508,7 @@ function handleTextClick() {
   white-space: nowrap;
 }
 
-/*AI input */
+/* AI input */
 
 .toolbar-input {
   flex: 1;
@@ -531,7 +533,7 @@ function handleTextClick() {
   border-color: var(--color-text-muted);
 }
 
-/*Send button */
+/* Send button */
 
 .toolbar-send {
   display: flex;
@@ -569,7 +571,7 @@ function handleTextClick() {
   to { transform: rotate(360deg); }
 }
 
-/*Send icon transition */
+/* Send icon transition */
 
 .send-icon-enter-active,
 .send-icon-leave-active {
@@ -582,19 +584,36 @@ function handleTextClick() {
   position: absolute;
 }
 
-.send-icon-enter-from {
-  opacity: 0;
-  scale: 0.25;
-  filter: blur(4px);
-}
-
+.send-icon-enter-from,
 .send-icon-leave-to {
   opacity: 0;
   scale: 0.25;
   filter: blur(4px);
 }
 
-/*Demo text */
+/* Toolbar standalone (variant=toolbar) */
+
+.demo-toolbar-standalone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  min-height: 120px;
+}
+
+.toolbar-wrapper--static {
+  position: relative;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toolbar-wrapper--static.toolbar-wrapper--hidden {
+  opacity: 0;
+  transform: translateY(16px) scale(80%);
+  pointer-events: none;
+}
+
+/* Demo text */
 
 .demo-text {
   font-size: 1.5rem;
@@ -606,7 +625,19 @@ function handleTextClick() {
   -webkit-mask-image: radial-gradient(ellipse 55% 50% at 60% 50%, black 20%, transparent 80%);
 }
 
-/*Text highlight */
+.demo-text--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  min-height: 100px;
+  max-width: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+  isolation: isolate;
+}
+
+/* Text highlight */
 
 .demo-highlight {
   position: relative;
@@ -630,6 +661,7 @@ function handleTextClick() {
 .demo-highlight--closed::before {
   background-color: color-mix(in srgb, var(--color-accent-underline) 25%, transparent);
 }
+
 .demo-highlight--closed:hover::before {
   background-color: color-mix(in srgb, var(--color-accent-underline) 50%, transparent);
 }
@@ -642,6 +674,7 @@ function handleTextClick() {
   -webkit-text-fill-color: transparent;
   animation: gradient-shift 0.5s linear infinite;
 }
+
 .demo-highlight--ai::before {
   background-color: color-mix(in srgb, var(--color-accent-underline) 25%, transparent);
 }
@@ -651,7 +684,7 @@ function handleTextClick() {
   100% { background-position: -100% 50%; }
 }
 
-/*Reduced motion */
+/* Reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
   .toolbar,
@@ -666,40 +699,6 @@ function handleTextClick() {
   .spinner {
     animation: none;
   }
-}
-
-/*Slow toggle */
-
-.slow-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 1rem;
-  cursor: pointer;
-  user-select: none;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
-.slow-toggle-input {
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--color-border);
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-}
-
-.slow-toggle-input:checked {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-.slow-toggle-input:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
 }
 </style>
 

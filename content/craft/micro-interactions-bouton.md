@@ -1,8 +1,8 @@
 ---
 title: Micro-interactions de bouton
 component: ButtonMicro
-cover: /videos/micro-interactions-bouton.webm
-date: 2026-02
+cover: /videos/craft/micro-interactions-bouton.webm
+date: 2026-02-10
 description: Exploration des patterns de feedback sur des boutons, du scale CSS aux transitions d'état GSAP en passant par les effets de hover créatifs.
 featured: true
 tags:
