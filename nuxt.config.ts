@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
     '@nuxt/image',
-    '@nuxt/fonts',
+    // '@nuxt/fonts',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@nuxtjs/color-mode',
@@ -50,12 +50,6 @@ export default defineNuxtConfig({
     langDir: '../locales/',
   },
 
-  fonts: {
-    families: [
-      { name: 'Geist', provider: 'fontsource', weights: [400, 500, 600] },
-      { name: 'Geist Mono', provider: 'fontsource', weights: [400] },
-    ],
-  },
 
   image: {
     quality: 80,
