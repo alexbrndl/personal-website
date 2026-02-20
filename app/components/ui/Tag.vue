@@ -4,6 +4,9 @@
 
 <style scoped>
 .tag {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.01em;

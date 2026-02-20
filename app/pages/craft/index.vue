@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { MousePointerClick, Image } from 'lucide-vue-next'
-
 const { t } = useI18n()
 
 const { data: items, error } = await useAsyncData('all-craft', () =>
@@ -18,7 +16,9 @@ const { data: galleryImages } = await useAsyncData('all-gallery', () =>
     .all()
 )
 
-const { activeFilter, displayedCraftItems, displayedGalleryItems, displayedCount } = useFilteredCraft(items, galleryImages)
+const {
+  activeFilter, filterTabs, displayedCraftItems, displayedGalleryItems, displayedCount, slideDirection,
+} = useCraftFilter(items, galleryImages, 'craft')
 
 const hasContent = computed(() =>
   (items.value?.length ?? 0) > 0 || (galleryImages.value?.length ?? 0) > 0
@@ -36,31 +36,14 @@ useSeoMeta({
   <section class="section">
     <h1 class="section-label">
       {{ t('craft.title') }}
-      <UiTag>{{ String(displayedCount).padStart(2, '0') }}</UiTag>
+      <UiTag>
+        <Transition :name="slideDirection">
+          <span :key="activeFilter">{{ String(displayedCount).padStart(2, '0') }}</span>
+        </Transition>
+      </UiTag>
     </h1>
 
-    <div class="filters">
-      <button
-        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'all' }]"
-        @click="activeFilter = 'all'"
-      >
-        {{ t('craft.filterAll') }}
-      </button>
-      <button
-        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'interactive' }]"
-        @click="activeFilter = 'interactive'"
-      >
-        <MousePointerClick class="filter-pill-icon" aria-hidden="true" />
-        {{ t('craft.filterInteractive') }}
-      </button>
-      <button
-        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'visual' }]"
-        @click="activeFilter = 'visual'"
-      >
-        <Image class="filter-pill-icon" aria-hidden="true" />
-        {{ t('craft.filterVisual') }}
-      </button>
-    </div>
+    <UiClipTabs v-model="activeFilter" :tabs="filterTabs" />
 
     <Transition v-if="hasContent" name="grid" mode="out-in">
       <div :key="activeFilter" class="craft-grid">

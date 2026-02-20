@@ -283,41 +283,40 @@ body {
   border-radius: 0.125rem;
 }
 
+/* ─── Tag slide transition ─── */
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.slide-right-leave-active,
+.slide-left-leave-active {
+  position: absolute;
+}
+
+.slide-right-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-right-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-left-enter-from {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-left-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
 /* ─── Craft / Gallery shared ─── */
-.filters {
-  display: flex;
-  gap: 0.375rem;
-}
-
-.filter-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
-  background-color: transparent;
-  color: var(--color-text-muted);
-}
-
-.filter-pill:hover {
-  color: var(--color-text);
-}
-
-.filter-pill--active {
-  background-color: var(--color-bg-accent);
-  color: var(--color-accent);
-}
-
-.filter-pill-icon {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .craft-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

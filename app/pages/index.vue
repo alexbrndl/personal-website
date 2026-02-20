@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDownRight, MousePointerClick, Image } from 'lucide-vue-next'
+import { ArrowDownRight } from 'lucide-vue-next'
 
 const { t } = useI18n()
 
@@ -29,7 +29,9 @@ const { data: galleryImages } = await useAsyncData('home-gallery', () =>
     .all()
 )
 
-const { activeFilter, displayedCraftItems, displayedGalleryItems, displayedCount } = useFilteredCraft(craftItems, galleryImages)
+const {
+  activeFilter, filterTabs, displayedCraftItems, displayedGalleryItems, displayedCount, slideDirection,
+} = useCraftFilter(craftItems, galleryImages, 'home')
 
 useSeoMeta({
   title: t('home.seo.title'),
@@ -102,35 +104,18 @@ useSeoMeta({
   <!-- Craft + Gallery -->
   <section v-if="craftItems?.length || galleryImages?.length" id="craft" class="section">
     <NuxtLink to="/craft" class="section-header">
-      <h2 class="section-label">{{ t('home.craft') }}<UiTag>{{ String(displayedCount).padStart(2, '0') }}</UiTag></h2>
+      <h2 class="section-label">{{ t('home.craft') }}<UiTag>
+            <Transition :name="slideDirection">
+              <span :key="activeFilter">{{ String(displayedCount).padStart(2, '0') }}</span>
+            </Transition>
+          </UiTag></h2>
       <span class="section-more link">
         {{ t('home.viewMore') }}
         <ArrowDownRight class="section-more-icon" aria-hidden="true" />
       </span>
     </NuxtLink>
 
-    <div class="filters">
-      <button
-        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'all' }]"
-        @click="activeFilter = 'all'"
-      >
-        {{ t('home.filterAll') }}
-      </button>
-      <button
-        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'interactive' }]"
-        @click="activeFilter = 'interactive'"
-      >
-        <MousePointerClick class="filter-pill-icon" aria-hidden="true" />
-        {{ t('home.filterInteractive') }}
-      </button>
-      <button
-        :class="['filter-pill', { 'filter-pill--active': activeFilter === 'visual' }]"
-        @click="activeFilter = 'visual'"
-      >
-        <Image class="filter-pill-icon" aria-hidden="true" />
-        {{ t('home.filterVisual') }}
-      </button>
-    </div>
+    <UiClipTabs v-model="activeFilter" :tabs="filterTabs" />
 
     <Transition name="grid" mode="out-in">
       <div :key="activeFilter" class="craft-grid">
