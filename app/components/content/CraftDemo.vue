@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import gsap from 'gsap'
 import type { CraftComponentName } from '~/utils/craft-components'
+import AnimatingIcons from '~/components/craft/AnimatingIcons.vue'
 import ButtonMicro from '~/components/craft/ButtonMicro.vue'
 import FloatingToolbar from '~/components/craft/FloatingToolbar.vue'
 
 const componentMap: Record<CraftComponentName, Component> = {
+  AnimatingIcons,
   ButtonMicro,
   FloatingToolbar,
 }
