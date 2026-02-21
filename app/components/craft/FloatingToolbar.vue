@@ -229,7 +229,6 @@ function handleTextClick() {
 /* Demo layout */
 
 .floating-toolbar-demo {
-  padding: 2rem 1.5rem;
   width: 100%;
   max-width: 540px;
 }

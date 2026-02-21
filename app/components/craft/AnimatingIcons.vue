@@ -139,7 +139,6 @@ function toggle(level: Level) {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 1rem;
 }
 
 .icons-row {

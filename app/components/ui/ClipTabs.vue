@@ -59,7 +59,7 @@ const model = defineModel<string>({ required: true })
   align-items: center;
   gap: 0.25rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   letter-spacing: -0.02em;
   padding: 0.25rem 0.625rem;
   border-radius: 1rem;

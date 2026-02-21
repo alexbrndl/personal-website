@@ -363,7 +363,6 @@ if (import.meta.client) {
 
 <style scoped>
 .btn-demo {
-  padding: 1.5rem;
 }
 
 .btn-demo-area {
